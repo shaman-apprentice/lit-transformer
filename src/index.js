@@ -3,7 +3,7 @@ import { html } from '../node_modules/lit-html/lit-html.js'
 export default function (template, delimiters = { start: '{{', end: '}}' }) {
   const parsedTemplate = parseTemplate(template, delimiters)
 
-  return data => html([...parsedTemplate.staticParts], data2Bindings(data))
+  return data => html(parsedTemplate.staticParts, data2Bindings(data))
 
   function data2Bindings(data) {
     return parsedTemplate.dataBindingKeys.map(key => data[key]) // todo nested keys

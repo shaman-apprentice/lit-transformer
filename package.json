@@ -1,0 +1,14 @@
+{
+  "name": "mustache2lit",
+  "version": "0.0.1",
+  "description": "transforms a basic mustache data binding template into a lit-html template",
+  "main": "src/index.js",
+  "repository": "https://github.com/shaman-apprentice/mustache2lit.git",
+  "author": "shaman-apprentice <Torsten.Knauf@gmx.de>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "lit-html": "^0.14.0",
+    "mustache": "^3.0.1"
+  }
+}

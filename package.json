@@ -11,7 +11,8 @@
     "chai": "^4.2.0",
     "dom-compare": "^0.3.2",
     "lit-html": "^0.14.0",
-    "mocha": "^5.2.0",
-    "mustache": "^3.0.1"
+    "mustache": "^3.0.1",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
   }
 }

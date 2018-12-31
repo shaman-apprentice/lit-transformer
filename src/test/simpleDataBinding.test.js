@@ -1,9 +1,13 @@
-import { render } from 'lit-html'
+import { html, render } from 'lit-html'
 import Mustache from 'mustache'
 
-import transform from '../index'
+import litTemplating from '../index'
 
 describe('data bindings', () => {
+  beforeAll(() => {
+    litTemplating.config.html = html;
+  })
+
   it('no bindings at all', () => {
     const template = 'Hello world'
     expect(stripLitExpressionMarkers(renderLit(template).innerHTML)).toBe(renderMustache(template).innerHTML)
@@ -24,7 +28,7 @@ function renderMustache(template, data) {
 
 function renderLit(template, data) {
   const container = document.createElement('div')
-  render(transform(template)(data), container)
+  render(litTemplating.parse(template)(data), container)
   return container
 }
 

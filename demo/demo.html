@@ -10,8 +10,11 @@
   import '../dist/index.js' // injects createLitTemplateTransformer
 
   const parse = createLitTemplateTransformer(html).parse
-  const templateRenderer = parse('Hello {{name}}!')
-  const data = { name: 'underworld' }
+  const templateRenderer = parse(`Hello {{who.prefix}} {{who.name}}!`)
+  const data = { who: {
+      prefix: 'Mr.',
+      name: 'Underworld',
+    } }
   render(templateRenderer(data), document.body)
 </script>
 </body>

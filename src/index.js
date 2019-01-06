@@ -20,12 +20,9 @@ export default (html, config = {}) => {
 }
 
 function parse(config, template) {
-  const parsedTemplate = parseTemplate(template, config.delimiters)
-  return data => config.html(parsedTemplate.staticParts, data2Bindings(data))
-
-  function data2Bindings(data) {
-    return parsedTemplate.dataBindingKeys.map(key => data[key]) // todo nested keys
-  }
+  const { staticParts, dataBindingKeys } = parseTemplate(template, config.delimiters)
+  return data =>
+    config.html(staticParts, ...data2Bindings(data, dataBindingKeys))
 }
 
 function parseTemplate(tmp, delimiters) {
@@ -49,4 +46,12 @@ function parseTemplate(tmp, delimiters) {
   staticParts.push(tmp)
 
   return { staticParts, dataBindingKeys }
+}
+
+export function data2Bindings(data, dataBindingKeys) {
+  return dataBindingKeys.map(key => key2Value(data, key))
+}
+
+function key2Value(data, key) {
+  return key.split('.').reduce((acc, value) => acc[value], data)
 }

@@ -1,7 +1,7 @@
 import { html, render } from 'lit-html'
 import Mustache from 'mustache'
 
-import createLitTemplateTransformer, { data2Bindings } from '../index'
+import createLitTemplateTransformer from '../index'
 
 const parse = createLitTemplateTransformer(html).parse
 
@@ -17,14 +17,6 @@ describe('data bindings', () => {
     expect(stripLitExpressionMarkers(renderLit(template, data).innerHTML)).toBe(renderMustache(template, data).innerHTML)
   })
 
-  it('data2Bindings helper', () => {
-    const data = { who: {
-      prefix: 'Mr.',
-      name: 'Underworld',
-    } }
-    expect(data2Bindings(data, ['who.prefix', 'who.name'])).toEqual(['Mr.', 'Underworld'])
-  })
-
   it('nested data binding', () => {
     const template = 'Hello {{who.prefix}} {{who.name}}!'
     const data = { who: {
@@ -38,6 +30,12 @@ describe('data bindings', () => {
     const template = '<div some-attri="{{someValue}}"></div>'
     const data = { someValue: 'some-value' }
     expect(renderLit(template, data).querySelector('[some-attri="some-value"]')).not.toBe(null)
+  })
+
+  it('string as data / {{.}}', () => {
+    const template = 'hi {{.}}'
+    const data = 'u'
+    expect(stripLitExpressionMarkers(renderLit(template, data).innerHTML)).toBe('hi u')
   })
 })
 

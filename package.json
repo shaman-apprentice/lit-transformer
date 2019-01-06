@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": "https://github.com/shaman-apprentice/mustache2lit.git",
   "author": "shaman-apprentice <Torsten.Knauf@gmx.de>",
-  "license": "MIT",
+  "license": "ISC",
   "private": false,
   "scripts": {
     "test": "jest --config test/jest.config.js"

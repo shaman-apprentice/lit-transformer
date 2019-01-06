@@ -8,10 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "jest"
-  },
-  "jest": {
-    "transformIgnorePatterns": []
+    "test": "jest --config test/jest.config.js"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",

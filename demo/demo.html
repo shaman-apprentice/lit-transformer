@@ -7,10 +7,10 @@
 <body>
 <script type="module">
   import { html, render } from '../node_modules/lit-html/lit-html.js'
-  import '../dist/index.js' // injects litTemplating
+  import '../dist/index.js' // injects createLitTemplateTransformer
 
-  litTemplating.config.html = html
-  const templateRenderer = litTemplating.parse('Hello {{name}}!')
+  const parse = createLitTemplateTransformer(html).parse
+  const templateRenderer = parse('Hello {{name}}!')
   const data = { name: 'underworld' }
   render(templateRenderer(data), document.body)
 </script>

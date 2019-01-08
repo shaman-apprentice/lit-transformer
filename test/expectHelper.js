@@ -1,9 +1,11 @@
 import { html, render } from 'lit-html'
+import { unsafeHTML } from 'lit-html/directives/unsafe-html'
+
 import Mustache from 'mustache'
 
 import createLitTemplateTransformer from "../src"
 
-const parse = createLitTemplateTransformer(html).parse
+const parse = createLitTemplateTransformer(html, { directives: { unsafeHTML } }).parse
 
 export function expectLitToBeMustache(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))

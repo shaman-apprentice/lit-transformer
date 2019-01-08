@@ -26,4 +26,13 @@ describe('data bindings', () => {
   it('string as data / {{.}}', () => {
     expect(renderLitInnerHtml('hi {{.}}', 'u')).toBe('hi u')
   })
+
+  it('html in data binding with triple {{{', () => {
+    expectLitToBeMustache('{{{someHtml}}}', { someHtml: '<p>I am a smart paragraph</p>' })
+  })
+
+  it('html in data binding with double {{', () => {
+    expect(renderLitInnerHtml('{{someHtml}}', { someHtml: '<p>I am a smart paragraph</p>' }))
+      .toBe('&lt;p&gt;I am a smart paragraph&lt;/p&gt;') // mustache does encode '/' as '&#x2F;' but I guess this difference is fine
+  })
 })

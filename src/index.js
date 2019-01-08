@@ -1,4 +1,5 @@
 import parseDataBinding from './dataBindingParser'
+import parseDataWithHtml from './withHtmlDataBindingParser'
 import parseSection from './sectionParser'
 
 // todo order appearance of templates
@@ -7,8 +8,10 @@ const defaultConfig = {
   html: undefined,
   delimiters: [
     { parse: parseSection, start: /{{#(.+?)}}/, createEnd: startMatch => new RegExp(`{{\/${startMatch[1]}}}`) }, // "?" makes it lazy / not a greedy match
+    { parse: parseDataWithHtml, start: /{{{/, end: /}}}/ },
     { parse: parseDataBinding, start: /{{/, end: /}}/ },
   ],
+  directives: {},
 }
 
 /**

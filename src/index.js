@@ -12,8 +12,8 @@ const defaultConfig = {
 }
 
 /**
- * @param {function} html html-function used for template creation
- * @param {Object} [config] partial config, which overwrites related default config */
+ * @param {function} html - a tagged html function used for template creation
+ * @param {Object} [config] - partial config, which overwrites related default config */
 export default (html, config = {}) => {
   const litTemplateTransformer = {
     config: {

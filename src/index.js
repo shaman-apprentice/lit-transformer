@@ -2,8 +2,6 @@ import parseDataBinding from './dataBindingParser'
 import parseDataWithHtml from './withHtmlDataBindingParser'
 import parseSection from './sectionParser'
 
-// todo order appearance of templates
-
 const defaultConfig = {
   html: undefined,
   delimiters: [
@@ -58,15 +56,26 @@ export function parse(template, config) {
 }
 
 function getDynamicPart(template, delimiters) {
-  for (let delimiter of delimiters) {
-    const startMatch = delimiter.start.exec(template)
-    if (startMatch)
-      return {
-        startMatch,
-        endMatch: (delimiter.createEnd ? delimiter.createEnd(startMatch) : delimiter.end).exec(template),
-        parse: delimiter.parse,
-      }
-  }
+  const candis = delimiters.map( d => ({ delimiter: d, startMatch: d.start.exec(template) }))
+    .filter(c => c.startMatch)
+    .sort(compareDPCandis)
 
-  return undefined
+  if (candis.length === 0)
+    return undefined
+
+  const fstMatch = candis[0]
+  return {
+    startMatch: fstMatch.startMatch,
+    endMatch: (fstMatch.delimiter.createEnd
+      ? fstMatch.delimiter.createEnd(fstMatch.startMatch)
+      : fstMatch.delimiter.end).exec(template),
+    parse: fstMatch.delimiter.parse,
+  }
+}
+
+export function compareDPCandis(c1, c2) {
+  if (c1.startMatch.index === c2.startMatch.index)
+    return c2.startMatch[0].length - c1.startMatch[0].length
+
+  return c1.startMatch.index < c2.startMatch.index ? -1 : 1
 }

@@ -1,18 +1,29 @@
 {
-  "name": "mustache2lit",
+  "name": "lit-transformer",
   "version": "0.0.1",
-  "description": "transforms a basic mustache data binding template into a lit-html template",
   "main": "src/index.js",
-  "repository": "https://github.com/shaman-apprentice/mustache2lit.git",
-  "author": "shaman-apprentice <Torsten.Knauf@gmx.de>",
   "license": "ISC",
+  "description": "Meant to transform a string (especially mustache) template into a lit-html template",
+  "keywords": [
+    "template",
+    "lit-html",
+    "mustache"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shaman-apprentice/lit-transformer.git"
+  },
+  "files": [
+    "/src/",
+    "!/src/test/"
+  ],
+  "author": "shaman-apprentice",
   "private": false,
   "scripts": {
     "test": "jest --config test/jest.config.js"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "dom-compare": "^0.3.2",
     "jest": "^23.6.0",
     "lit-html": "^0.14.0",
     "mustache": "^3.0.1",

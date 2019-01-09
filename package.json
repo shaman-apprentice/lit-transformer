@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "license": "ISC",
-  "description": "Meant to transform a string (especially mustache) template into a lit-html template",
+  "description": "Meant to transform a string template (especially mustache) into a lit-html template",
   "keywords": [
     "template",
     "lit-html",

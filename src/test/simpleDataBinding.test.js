@@ -1,12 +1,12 @@
-import { expectLitToBeMustache, renderLitInto, renderLitInnerHtml } from '../../test/expectHelper'
+import { expectTemplatesInnerHTML, renderLitInto, renderLitInnerHtml } from '../../test/expectHelper'
 
 describe('data bindings', () => {
   it('no bindings at all', () => {
-    expectLitToBeMustache('Hello world', {})
+    expectTemplatesInnerHTML('Hello world', {})
   })
 
   it('simple string data binding', () => {
-    expectLitToBeMustache('Hello {{name}}!', { name: 'Underworld' })
+    expectTemplatesInnerHTML('Hello {{name}}!', { name: 'Underworld' })
   })
 
   it('nested data binding', () => {
@@ -14,7 +14,7 @@ describe('data bindings', () => {
         prefix: 'Mr.',
         name: 'Underworld',
       } }
-    expectLitToBeMustache('Hello {{who.prefix}} {{who.name}}!', data)
+    expectTemplatesInnerHTML('Hello {{who.prefix}} {{who.name}}!', data)
   })
 
   it('attribute data binding', () => {
@@ -28,7 +28,7 @@ describe('data bindings', () => {
   })
 
   it('html in data binding with triple {{{', () => {
-    expectLitToBeMustache('{{{someHtml}}}', { someHtml: '<p>I am a smart paragraph</p>' })
+    expectTemplatesInnerHTML('{{{someHtml}}}', { someHtml: '<p>I am a smart paragraph</p>' })
   })
 
   it('html in data binding with double {{', () => {

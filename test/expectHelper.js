@@ -9,7 +9,7 @@ import createLitTemplateTransformer from "../src"
 
 const parse = createLitTemplateTransformer(html, { directives: { unsafeHTML } }).parse
 
-export function expectLitToBeMustache(template, data) {
+export function expectTemplatesInnerHTML(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))
 }
 

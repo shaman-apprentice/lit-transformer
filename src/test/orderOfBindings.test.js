@@ -1,4 +1,4 @@
-import { expectLitToBeMustache, expectTemplatesDom } from '../../test/expectHelper'
+import { expectTemplatesInnerHTML, expectTemplatesDom } from '../../test/expectHelper'
 
 describe('data bindings', () => {
   it('{{ before {{{', () => {
@@ -6,7 +6,7 @@ describe('data bindings', () => {
         prefix: 'Mr.',
         name: 'Underworld',
       } }
-    expectLitToBeMustache('Hello {{who.prefix}} {{{who.name}}}!', data)
+    expectTemplatesInnerHTML('Hello {{who.prefix}} {{{who.name}}}!', data)
   })
 
   it('{{{ before {{', () => {
@@ -14,7 +14,7 @@ describe('data bindings', () => {
         prefix: 'Mr.',
         name: 'Underworld',
       } }
-    expectLitToBeMustache('Hello {{{who.prefix}}} {{who.name}}!', data)
+    expectTemplatesInnerHTML('Hello {{{who.prefix}}} {{who.name}}!', data)
   })
 
   it('with {{, {{{ and {{#', () => {

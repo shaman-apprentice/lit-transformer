@@ -5,7 +5,7 @@ import Mustache from 'mustache'
 
 import { compare } from 'dom-compare'
 
-import createLitTemplateTransformer from "../src"
+import createLitTemplateTransformer from '../src'
 
 const parse = createLitTemplateTransformer(html, { directives: { unsafeHTML } }).parse
 

@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "dom-compare": "^0.3.2",
     "jest": "^23.6.0",
     "lit-html": "^0.14.0",
     "mustache": "^3.0.1",

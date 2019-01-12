@@ -1,4 +1,4 @@
-import { expectLitToBeMustache, renderLitInto, renderLitInnerHtml } from '../../test/expectHelper'
+import { expectLitToBeMustache, expectTemplatesDom } from '../../test/expectHelper'
 
 describe('data bindings', () => {
   it('{{ before {{{', () => {
@@ -17,8 +17,7 @@ describe('data bindings', () => {
     expectLitToBeMustache('Hello {{{who.prefix}}} {{who.name}}!', data)
   })
 
-  // todo almost works -> assertions on jsdom would be nice due to only diffing in \n
-  it.skip('with {{, {{{ and {{#', () => {
+  it('with {{, {{{ and {{#', () => {
     const data = {
       fancyIntro: 'Fancy persons:',
       persons: [
@@ -35,7 +34,6 @@ describe('data bindings', () => {
       </ul>
     `
 
-    console.log(renderLitInnerHtml(template, data))
-    expectLitToBeMustache(template, data)
+    expectTemplatesDom(template, data)
   })
 })

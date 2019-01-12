@@ -3,12 +3,22 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html'
 
 import Mustache from 'mustache'
 
+import { compare } from 'dom-compare'
+
 import createLitTemplateTransformer from "../src"
 
 const parse = createLitTemplateTransformer(html, { directives: { unsafeHTML } }).parse
 
 export function expectLitToBeMustache(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))
+}
+
+export function expectTemplatesDom(template, data) {
+  const renderedLitNode = renderLitInto(template, data)
+  const renderedMustache = renderMustacheInto(template, data)
+  const differences = compare(renderedLitNode, renderedMustache).getDifferences()
+
+  expect(differences).toEqual([])
 }
 
 export function renderLitInto(template, data, container = document.createElement('div')) {
@@ -22,4 +32,9 @@ export function renderLitInnerHtml(template, data) {
 
 function stripLitExpressionMarkers (s) {
   return s.replace(/<!---->/g, '')
+}
+
+function renderMustacheInto(template, data, container = document.createElement('div')) {
+  container.innerHTML = Mustache.render(template, data)
+  return container
 }

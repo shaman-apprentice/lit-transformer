@@ -1,4 +1,4 @@
-import { data2Value } from './dataHelper'
+import { data2Value } from '../helper/dataHelper'
 import { transform } from '../index'
 
 // todo test for start not greedy

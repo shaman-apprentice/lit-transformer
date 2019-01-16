@@ -1,4 +1,4 @@
-import { data2Value } from './dataHelper'
+import { data2Value } from '../helper/dataHelper'
 
 export default () => ({
   delimiter: {

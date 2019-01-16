@@ -1,4 +1,4 @@
-import { data2Value } from './dataHelper'
+import { data2Value } from '../helper/dataHelper'
 
 /*
  * Note, this is unsafe to use cause the rendered output could be any JavaScript . */

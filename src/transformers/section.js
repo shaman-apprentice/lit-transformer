@@ -4,6 +4,7 @@ import { transform } from '../index'
 // todo test for start not greedy
 // todo manual string parsing faster then RegEx?
 
+/** Note, unlike within mustache functions as data values are not supported for the time being */
 export default () => ({
   delimiter: {
     start: /{{#(.+?)}}/,

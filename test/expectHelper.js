@@ -9,11 +9,13 @@ import createTransform from '../src/index'
 import createVariableTransformer from '../src/transformers/variable'
 import unsafeVariableTransformer from '../src/transformers/unsafeVariable'
 import sectionTransformer from '../src/transformers/section'
+import invertedSectionTransformer from '../src/transformers/invertedSection'
 
 const transformers = [
   createVariableTransformer(),
   unsafeVariableTransformer(unsafeHTML),
   sectionTransformer(),
+  invertedSectionTransformer(),
 ]
 const transform = createTransform({ html, transformers })
 

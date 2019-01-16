@@ -1,4 +1,5 @@
 import { data2Value } from '../helper/dataHelper'
+import { isMustacheFalsy } from '../helper/isMustacheFalsy'
 import { transform } from '../index'
 
 // todo test for start not greedy
@@ -28,8 +29,4 @@ export default () => ({
 
 function renderArray(arrayData, parsedInnerTemplate) {
   return arrayData.map(d => parsedInnerTemplate(d))
-}
-
-function isMustacheFalsy(value) {
-  return [null, undefined, false, 0, NaN, ''].some(falsy => falsy === value) || (value.length && value.length === 0)
 }

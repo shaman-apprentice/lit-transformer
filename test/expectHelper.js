@@ -5,9 +5,17 @@ import Mustache from 'mustache'
 
 import { compare } from 'dom-compare'
 
-import createLitTemplateTransformer from '../src'
+import createTransform from '../src/index'
+import createVariableTransformer from '../src/transformers/variable'
+import unsafeVariableTransformer from '../src/transformers/unsafeVariable'
+import sectionTransformer from '../src/transformers/section'
 
-const parse = createLitTemplateTransformer(html, { directives: { unsafeHTML } }).parse
+const transformers = [
+  createVariableTransformer(),
+  unsafeVariableTransformer(unsafeHTML),
+  sectionTransformer(),
+]
+const transform = createTransform({ html, transformers })
 
 export function expectTemplatesInnerHTML(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))
@@ -22,7 +30,7 @@ export function expectTemplatesDom(template, data) {
 }
 
 export function renderLitInto(template, data, container = document.createElement('div')) {
-  render(parse(template)(data), container)
+  render(transform(template)(data), container)
   return container
 }
 

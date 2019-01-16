@@ -20,7 +20,7 @@
   "author": "shaman-apprentice",
   "private": false,
   "scripts": {
-    "test": "jest --config test/jest.config.js"
+    "test": "jest --config test/config/jest.config.js"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",

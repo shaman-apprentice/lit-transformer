@@ -1,79 +1,66 @@
-import parseDataBinding from './dataBindingParser'
-import parseDataWithHtml from './withHtmlDataBindingParser'
-import parseSection from './sectionParser'
 
-const defaultConfig = {
-  html: undefined,
-  delimiters: [
-    { parse: parseSection, start: /{{#(.+?)}}/, createEnd: startMatch => new RegExp(`{{\/${startMatch[1]}}}`) }, // "?" makes it lazy / not a greedy match
-    { parse: parseDataWithHtml, start: /{{{/, end: /}}}/ },
-    { parse: parseDataBinding, start: /{{/, end: /}}/ },
-  ],
-  directives: {},
-}
+// todo at least correct jsdocs
+/*
+  config type := {
+    html: lit-html.html
+    transformers: [{
+      delimiter {
+        start: RegExp,
+        end: RegExp,
+        createEnd: startMatch => RegExp,
+      },
+      transform: ({config, innerTemplate, startMatch}) => data => TemplateResult
+    }],
+} */
 
-/**
- * @param {function} html - a tagged html function used for template creation
- * @param {Object} [config] - partial config, which overwrites related default config */
-export default (html, config = {}) => {
-  const litTemplateTransformer = {
-    config: {
-      ...defaultConfig,
-      ...config,
-      html: html,
-    },
-    parse: template => parse(template, litTemplateTransformer.config),
-  }
+export default config =>
+    template => transform(template, config)
 
-  return litTemplateTransformer
-}
-
-export function parse(template, config) {
+export function transform(template, config) {
   const staticParts = [];
-  const dynamicParts = [];
+  const insertionPoints = [];
 
   let str2Parse = template;
-  let dP = getDynamicPart(str2Parse, config.delimiters)
-  while (dP) {
-    staticParts.push(str2Parse.substring(0, dP.startMatch.index))
+  let iP = getNextInsertionPoint(str2Parse, config.transformers)
+  while (iP) {
+    staticParts.push(str2Parse.substring(0, iP.startMatch.index))
 
-    dynamicParts.push(dP.parse({
+    insertionPoints.push(iP.transform({
       config,
-      innerTemplate: str2Parse.substring(dP.startMatch.index + dP.startMatch[0].length, dP.endMatch.index),
-      startMatch: dP.startMatch,
-      endMatch: dP.endMatch,
+      innerTemplate: str2Parse.substring(iP.startMatch.index + iP.startMatch[0].length, iP.endMatch.index),
+      startMatch: iP.startMatch,
+      endMatch: iP.endMatch,
     }))
 
-    str2Parse = str2Parse.substring(dP.endMatch.index + dP.endMatch[0].length)
+    str2Parse = str2Parse.substring(iP.endMatch.index + iP.endMatch[0].length)
 
-    dP = getDynamicPart(str2Parse, config.delimiters)
+    iP = getNextInsertionPoint(str2Parse, config.transformers)
   }
 
   staticParts.push(str2Parse)
 
   return data =>
-    config.html(staticParts, ...dynamicParts.map(dynamicPart => dynamicPart(data)))
+    config.html(staticParts, ...insertionPoints.map(iP => iP(data)))
 }
 
-function getDynamicPart(template, delimiters) {
-  const candis = delimiters.map( d => ({ delimiter: d, startMatch: d.start.exec(template) }))
+function getNextInsertionPoint(template, transformers) {
+  const candis = transformers.map( t => ({ t, startMatch: t.delimiter.start.exec(template) }))
     .filter(c => c.startMatch)
-    .sort(compareDPCandis)
+    .sort(compareIPCandis)
 
   if (candis.length === 0)
     return undefined
 
-  const fstMatch = candis[0]
+  const fstIP = candis[0]
   return {
-    startMatch: fstMatch.startMatch,
-    endMatch: (fstMatch.delimiter.createEnd
-      ? fstMatch.delimiter.createEnd(fstMatch.startMatch)
-      : fstMatch.delimiter.end).exec(template),
-    parse: fstMatch.delimiter.parse,
+    startMatch: fstIP.startMatch,
+    endMatch: (fstIP.t.delimiter.createEnd ? fstIP.t.delimiter.createEnd(fstIP.startMatch) : fstIP.t.delimiter.end)
+      .exec(template),
+    transform: fstIP.t.transform,
   }
 }
 
-export function compareDPCandis(c1, c2) {
+export function compareIPCandis(c1, c2) {
   if (c1.startMatch.index === c2.startMatch.index)
     return c2.startMatch[0].length - c1.startMatch[0].length
 

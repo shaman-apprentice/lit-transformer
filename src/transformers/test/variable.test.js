@@ -1,4 +1,4 @@
-import { expectTemplatesInnerHTML, renderLitInto, renderLitInnerHtml } from '../../test/expectHelper'
+import { expectTemplatesInnerHTML, renderLitInto, renderLitInnerHtml } from '../../../test/expectHelper'
 
 describe('data bindings', () => {
   it('no bindings at all', () => {

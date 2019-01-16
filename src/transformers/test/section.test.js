@@ -1,5 +1,4 @@
-import { expectTemplatesInnerHTML } from '../../test/expectHelper'
-
+import { expectTemplatesInnerHTML } from '../../../test/expectHelper'
 
 describe('data bindings', () => {
   it('falsy section with undefined', () => {

@@ -1,6 +1,6 @@
 import { data2Value } from '../helper/dataHelper'
 import { isMustacheFalsy } from '../helper/isMustacheFalsy'
-import { transform } from '../index'
+import { transform } from '../lit-transformer'
 
 // todo test for start not greedy
 // todo manual string parsing faster then RegEx?

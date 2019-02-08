@@ -17,10 +17,10 @@ export default config =>
     template => transform(template, config)
 
 export function transform(template, config) {
-  const staticParts = [];
-  const insertionPoints = [];
+  const staticParts = []
+  const insertionPoints = []
 
-  let str2Parse = template;
+  let str2Parse = template
   let iP = getNextInsertionPoint(str2Parse, config.transformers)
   while (iP) {
     staticParts.push(str2Parse.substring(0, iP.startMatch.index))

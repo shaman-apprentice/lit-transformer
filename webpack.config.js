@@ -1,13 +1,13 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
-    mode: 'development', // todo
+    entry: './src/full-configured-lit-transformer.js',
+    mode: 'development', // todo prod / minified
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index.js', // todo rename to package name; minified
+        filename: 'injectCreateLitTransformer.js',
         libraryExport: 'default',
-        library: 'createLitTemplateTransformer',
+        library: 'createLitTransformer',
         libraryTarget: 'window', // todo https://medium.com/@kelin2025/so-you-wanna-use-es6-modules-714f48b3a953
     },
 };

@@ -1,23 +1,13 @@
 import { html, render } from 'lit-html'
-import { unsafeHTML } from 'lit-html/directives/unsafe-html'
+import { unsafeHTML } from '../node_modules/lit-html/directives/unsafe-html.js'
 
 import Mustache from 'mustache'
 
 import { compare } from 'dom-compare'
 
-import createTransform from '../src/index'
-import createVariableTransformer from '../src/transformers/variable'
-import unsafeVariableTransformer from '../src/transformers/unsafeVariable'
-import sectionTransformer from '../src/transformers/section'
-import invertedSectionTransformer from '../src/transformers/invertedSection'
+import createTransform from '../src/full-configured-lit-transformer'
 
-const transformers = [
-  createVariableTransformer(),
-  unsafeVariableTransformer(unsafeHTML),
-  sectionTransformer(),
-  invertedSectionTransformer(),
-]
-const transform = createTransform({ html, transformers })
+const transform = createTransform(html, unsafeHTML)
 
 export function expectTemplatesInnerHTML(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))

@@ -7,15 +7,21 @@
 <body>
 <script type="module">
   import { html, render } from '../node_modules/lit-html/lit-html.js'
-  import '../dist/index.js' // injects createLitTemplateTransformer
+  import { unsafeHTML } from '../node_modules/lit-html/directives/unsafe-html.js'
 
-  const parse = createLitTemplateTransformer(html).parse
-  const templateRenderer = parse(`Hello {{who.prefix}} {{who.name}}!`)
-  const data = { who: {
-      prefix: 'Mr.',
+  import '../dist/injectCreateLitTransformer.js'
+
+  const transform = createLitTransformer(html, unsafeHTML)
+
+  const template = transform('Hello {{{who.prefix}}} {{who.name}}!')
+  const data = {
+    who: {
+      prefix: '<b>Mr.</b>',
       name: 'Underworld',
-    } }
-  render(templateRenderer(data), document.body)
+    }
+  }
+
+  render(template(data), document.body)
 </script>
 </body>
 </html>

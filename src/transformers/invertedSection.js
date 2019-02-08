@@ -9,7 +9,7 @@ export default () => ({
     start: /{{\^(.+?)}}/,
     createEnd: startMatch => new RegExp(`{{\/${startMatch[1]}}}`), // "?" makes it lazy / not a greedy match
   },
-  transform: ({ config, innerTemplate, startMatch }) => {
+  transform: ({ innerTemplate, startMatch }) => {
     const dataKey = startMatch[1]
 
     return data => {

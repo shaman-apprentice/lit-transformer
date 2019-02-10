@@ -4,6 +4,8 @@
 
 For what ever reason ever you may need this - `lit-transformer` translates a [mustache.js](https://github.com/janl/mustache.js/) like template into a [lit-html](https://github.com/polymer/lit-html) template.
 
+[Working demo](./demo/demo.html)
+
 ## Basic usage
 ```js
 import createTransformer from 'lit-transformer'

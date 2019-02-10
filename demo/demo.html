@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-<script type="module">
-  import { html, render } from '../node_modules/lit-html/lit-html.js'
-  import { unsafeHTML } from '../node_modules/lit-html/directives/unsafe-html.js'
+  <head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+  </head>
 
-  import '../dist/injectCreateLitTransformer.js'
+  <body>
+    <button id="switch-short-story">Switch Short Story</button>
+    <section id="short-story-content"></section>
+  </body>
 
-  const transform = createLitTransformer(html, unsafeHTML)
-
-  const template = transform('Hello {{{who.prefix}}} {{who.name}}!')
-  const data = {
-    who: {
-      prefix: '<b>Mr.</b>',
-      name: 'Underworld',
-    }
-  }
-
-  render(template(data), document.body)
-</script>
-</body>
+  <script type="module" src="demo.js"></script>
 </html>

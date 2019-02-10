@@ -7,7 +7,7 @@ import { compare } from 'dom-compare'
 
 import createTransform from '../src/full-configured-lit-transformer'
 
-const transform = createTransform(html, unsafeHTML)
+const defaultTransform = createTransform(html, unsafeHTML)
 
 export function expectTemplatesInnerHTML(template, data) {
   expect(renderLitInnerHtml(template, data)).toBe(Mustache.render(template, data))
@@ -21,7 +21,8 @@ export function expectTemplatesDom(template, data) {
   expect(differences).toEqual([])
 }
 
-export function renderLitInto(template, data, container = document.createElement('div')) {
+export function renderLitInto(template, data, transform = defaultTransform) {
+  const container = document.createElement('div')
   render(transform(template)(data), container)
   return container
 }
@@ -30,11 +31,12 @@ export function renderLitInnerHtml(template, data) {
   return stripLitExpressionMarkers(renderLitInto(template, data).innerHTML)
 }
 
-function stripLitExpressionMarkers (s) {
-  return s.replace(/<!---->/g, '')
-}
-
-function renderMustacheInto(template, data, container = document.createElement('div')) {
+export function renderMustacheInto(template, data) {
+  const container = document.createElement('div')
   container.innerHTML = Mustache.render(template, data)
   return container
+}
+
+function stripLitExpressionMarkers (s) {
+  return s.replace(/<!---->/g, '')
 }

@@ -7,6 +7,9 @@ const transform = createLitTransformer(html, unsafeHTML)
 
 const strTemplate = `
   <h2>A useless short story</h2>
+  
+  {{{version}}}
+  
   <p>Once upon a time, there was a <em>{{who}}</em>. He lay down and glanced into the clear night sky...</p>
   {{=<% %>=}}
     <div style="border: solid 2px black; display: inline-block; background-color: dark">
@@ -45,6 +48,7 @@ const strTemplate = `
 `
 
 const shortStory1 = {
+  version: '<em>Version 1</em>',
   who: 'little alien',
   what: 'a lovely galaxy',
   todos: [
@@ -57,6 +61,7 @@ const shortStory1 = {
 }
 
 const shortStory2 = {
+  version: '<em>Version 2</em>',
   who: 'Mr. Chuck Norris',
   what: 'my front yard',
   todos: [

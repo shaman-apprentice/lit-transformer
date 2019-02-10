@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
     entry: './src/full-configured-lit-transformer.js',
     mode: 'development', // todo prod / minified
+    devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'injectCreateLitTransformer.js',

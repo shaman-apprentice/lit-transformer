@@ -1,20 +1,22 @@
 
-// todo at least correct jsdocs
-/*
-  config type := {
-    html: lit-html.html
-    transformers: [{
-      delimiter {
-        start: RegExp,
-        end: RegExp,
-        createEnd: startMatch => RegExp,
-      },
-      transform: ({config, innerTemplate, startMatch}) => data => TemplateResult
-    }],
-} */
-
+/** 
+ * @param {object} config = {
+ *   html: lit-html.html,
+ *   transformers: {
+ *     name: {
+ *       delimiter: {
+ *         start: RegExp,
+ *         end: RegExp,
+ *         createEnd: startMatch => RegExp,
+ *       },
+ *       transform: ({ config, innerTemplate, startMatch, endMatch }) => ctx => TemplateResult,
+ *     }
+ *   },
+ * }
+ * @returns {function} strTemplate => ctx => lit-html.TemplateResult
+ */
 export default config =>
-    template => transform(template, config)
+  template => transform(template, config)
 
 export function transform(template, config) {
   const staticParts = []
@@ -44,7 +46,7 @@ export function transform(template, config) {
 }
 
 function getNextInsertionPoint(template, transformers) {
-  const candis = transformers.map( t => ({ t, startMatch: t.delimiter.start.exec(template) }))
+  const candis = Object.values(transformers).map( t => ({ t, startMatch: t.delimiter.start.exec(template) }))
     .filter(c => c.startMatch)
     .sort(compareIPCandis)
 

@@ -5,6 +5,8 @@ export default () => ({
     start: /{{/,
     end: /}}/,
   },
-  transform: ({ innerTemplate }) =>
-      data => data2Value(data, innerTemplate)
+  transform,
 })
+
+export const transform = ({ innerTemplate }) =>
+  data => data2Value(data, innerTemplate)

@@ -1,6 +1,6 @@
 import { expectTemplatesInnerHTML, renderLitInto, renderLitInnerHtml } from '../../../test/expectHelper'
 
-describe('data bindings', () => {
+describe('variable', () => {
   it('no bindings at all', () => {
     expectTemplatesInnerHTML('Hello world', {})
   })

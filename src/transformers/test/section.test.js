@@ -1,6 +1,6 @@
 import { expectTemplatesInnerHTML } from '../../../test/expectHelper'
 
-describe('data bindings', () => {
+describe('section', () => {
   it('falsy section with undefined', () => {
     const template = 'Hello {{#who}}Dr. Who{{/who}}!'
     const data = { who: undefined }

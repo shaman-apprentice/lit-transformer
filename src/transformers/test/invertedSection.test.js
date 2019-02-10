@@ -1,6 +1,6 @@
 import { expectTemplatesInnerHTML } from '../../../test/expectHelper'
 
-describe('data bindings', () => {
+describe('inverted section', () => {
   it('falsy inverted section with undefined', () => {
     const template = 'Hello {{^who}}not for real{{/who}}!'
     const data = { who: undefined }

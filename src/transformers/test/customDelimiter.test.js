@@ -1,4 +1,4 @@
-import {renderLitInto, renderMustacheInto} from '../../../test/expectHelper'
+import { renderLitInto, renderMustacheInto } from '../../../test/expectHelper'
 
 import { html } from 'lit-html'
 import createTransform from '../../lit-transformer'
@@ -7,7 +7,7 @@ import customDelimiter from '../customDelimiter'
 
 describe('custom delimiter', () => {
   let transform;
-  
+
   beforeEach(() => {
     transform = createTransform({
       html,
@@ -20,7 +20,7 @@ describe('custom delimiter', () => {
 
   it('change tag does work', () => {
     const template = "{{=<% %>=}}Hello <%who%>. If I may say so, '_{{--}}_krghn' are weird characters within a name."
-    const data = { 
+    const data = {
       who: 'Mr. Alien_{{--}}_krghn',
     }
     expectToBeEqual(template, data, transform)
@@ -33,11 +33,20 @@ describe('custom delimiter', () => {
       <%={{ }}=%> 
       At least for a name at {{where}}.
     `
-    const data = { 
+    const data = {
       who: 'Mr. Alien_{{--}}_krghn',
       where: 'earth',
     }
 
+    expectToBeEqual(template, data, transform)
+  })
+
+  it('change tag changes all delimiter', () => {
+    const template = "{{=<% %>=}}Hello <%who%>. <%!peep%>"
+    const data = {
+      who: 'Mr. Alien_{{--}}_krghn',
+      ['!peep']: 'you ***',
+    }
     expectToBeEqual(template, data, transform)
   })
 })

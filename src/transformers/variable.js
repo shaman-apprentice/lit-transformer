@@ -1,12 +1,11 @@
 import { data2Value } from '../helper/dataHelper'
 
-export default () => ({
-  delimiter: {
-    start: /{{/,
-    end: /}}/,
-  },
-  transform,
-})
-
-export const transform = ({ innerTemplate }) =>
-  data => data2Value(data, innerTemplate)
+export default (remainingTmplStr, { delimiter }) => {
+  const indexOfEndDelimiter = remainingTmplStr.indexOf(delimiter.end)
+  const dataKey = remainingTmplStr.substring(0, indexOfEndDelimiter)
+  return {
+    remainingTmplStr: remainingTmplStr.substring(indexOfEndDelimiter + delimiter.end.length),
+    staticParts: [ ],
+    insertionPoints: [ ctx => data2Value(ctx, dataKey) ]
+  }
+}

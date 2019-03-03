@@ -35,7 +35,7 @@ const strTemplate = `
   ------------------------------------------------------------------------------------------------------------------------------
 </pre>
     </div>
-    <p>"Isn't this <em><%what%></em>? {{! nobody cares about comments }}"</p>
+    <p>"Isn't this <em><%what%></em>? <%! nobody cares about comments %>"</p>
   <%={{ }}=%>
 
   <p>But the <em>{{who}}</em> had no time to gaze at it any longer. He had many things todo:</p>

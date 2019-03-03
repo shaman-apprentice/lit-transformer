@@ -1,8 +1,9 @@
-import { html, render } from '../node_modules/lit-html/lit-html.js'
-import { unsafeHTML } from '../node_modules/lit-html/directives/unsafe-html.js'
+import {html, render} from 'https://unpkg.com/lit-html?module';
+import { unsafeHTML } from 'https://unpkg.com/lit-html/directives/unsafe-html?module';
 
 import '../dist/injectCreateLitTransformer.js'
-
+// import createLitTransformer from '../src/full-configured-lit-transformer?module'
+//import createLitTransformer from '../src/full-configured-lit-transformer.js';
 const transform = createLitTransformer(html, unsafeHTML)
 
 const strTemplate = `

@@ -1,4 +1,4 @@
-import { ctx2Value } from '../helper/dataHelper'
+import { ctx2Value } from '../helper/dataHelper.js'
 
 export default (remainingTmplStr, { delimiter }) => {
   const indexOfEndDelimiter = remainingTmplStr.indexOf(delimiter.end)

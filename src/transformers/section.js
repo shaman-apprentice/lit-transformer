@@ -1,6 +1,6 @@
-import { ctx2Value } from '../helper/dataHelper'
-import { isMustacheFalsy } from '../helper/isMustacheFalsy'
-import { transform } from '../lit-transformer'
+import { ctx2Value } from '../helper/dataHelper.js'
+import { isMustacheFalsy } from '../helper/isMustacheFalsy.js'
+import { transform } from '../lit-transformer.js'
 
 /** Note, unlike within mustache functions as data values are not supported for the time being */
 export default () => ({

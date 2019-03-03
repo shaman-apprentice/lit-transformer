@@ -1,4 +1,4 @@
-import { ctx2Value } from '../helper/dataHelper'
+import { ctx2Value } from '../helper/dataHelper.js'
 
 /** Note, this is unsafe to use, because the rendered output could be any JavaScript! */
 export default unsafeHTML => ({

@@ -1,4 +1,4 @@
-import { transform } from './transformVariable'
+import { transform } from './transformVariable.js'
 
 export default () => ({
   test: remainingTmplStr => remainingTmplStr[0] === '=',

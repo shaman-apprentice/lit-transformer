@@ -1,5 +1,5 @@
-import { ctx2Value } from '../helper/dataHelper'
-import { isMustacheFalsy } from '../helper/isMustacheFalsy'
+import { ctx2Value } from '../helper/dataHelper.js'
+import { isMustacheFalsy } from '../helper/isMustacheFalsy.js'
 
 export default () => ({
   test: remainingTmplStr => remainingTmplStr[0] === '^',

@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html'
-import { unsafeHTML } from '../node_modules/lit-html/directives/unsafe-html.js'
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
 
 import Mustache from 'mustache'
 

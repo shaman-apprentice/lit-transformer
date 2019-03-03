@@ -30,6 +30,11 @@ export function transform(tmpl2Parse, config) {
 
     const transform = getTransform(remainingTmplStr, config)
     const transformResult = transform(remainingTmplStr, config)
+
+    // a template must become smaller with each transformation - if not there was probably a start tag without a closing tag
+    if (transformResult.remainingTmplStr.length + config.delimiter.end.length >= remainingTmplStr.length)
+      throw new Error(`'${tmpl2Parse}' is not a valid template - got stuck at '${remainingTmplStr}'`)
+
     remainingTmplStr = transformResult.remainingTmplStr
     insertionPoints.push(transformResult.insertionPoint)
   }

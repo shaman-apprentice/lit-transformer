@@ -1,31 +1,19 @@
-import { transform } from './variable'
+import { transform } from './transformVariable'
 
-export default (nameOfVariableTransformer = 'variable') => {
-  const delimiter = {
-    start: /{{=/,
-    end: /=}}/,
-  }
+export default () => ({
+  test: remainingTmplStr => remainingTmplStr[0] === '=',
+  transform: (remainingTmplStr, config) => {
+    const originalEndDeliLength = config.delimiter.end.length
+    const indexOfEndTag = remainingTmplStr.indexOf('=' + config.delimiter.end)
+    const innerTmpl = remainingTmplStr.substring(1, indexOfEndTag)
+    const newDelis = innerTmpl.split(' ')
 
-  return {
-    delimiter,
-    transform: ({ config, innerTemplate }) => {
-      const [ startDelimiter, endDelimiter ] = innerTemplate.split(' ')
-      delimiter.start = new RegExp(startDelimiter + '=')
-      delimiter.end = new RegExp('=' + endDelimiter)
-      config.transformers[nameOfVariableTransformer] = createCustomVariableTransformer(startDelimiter, endDelimiter)
-
-      return () => ''
+    config.delimiter.start = newDelis[0]
+    config.delimiter.end = newDelis[1]
+    
+    return {
+      remainingTmplStr: remainingTmplStr.substring(indexOfEndTag + 1 + originalEndDeliLength),
+      insertionPoint: ctx => '',  
     }
   }
-}
-
-function createCustomVariableTransformer(startDelimiter, endDelimiter) {
-  return {
-    delimiter: {
-      start: new RegExp(startDelimiter),
-      end: new RegExp(endDelimiter)
-    },
-    transform,
-  }
-}
-
+})

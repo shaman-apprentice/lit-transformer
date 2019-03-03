@@ -1,20 +1,24 @@
-import { data2Value } from '../helper/dataHelper'
+import { ctx2Value } from '../helper/dataHelper'
 import { isMustacheFalsy } from '../helper/isMustacheFalsy'
 
-// todo test for start not greedy
-// todo manual string parsing faster then RegEx?
-
 export default () => ({
-  delimiter: {
-    start: /{{\^(.+?)}}/,
-    createEnd: startMatch => new RegExp(`{{\/${startMatch[1]}}}`), // "?" makes it lazy / not a greedy match
-  },
-  transform: ({ innerTemplate, startMatch }) => {
-    const dataKey = startMatch[1]
+  test: remainingTmplStr => remainingTmplStr[0] === '^',
+  transform: (remainingTmplStr, { delimiter }) => {
+    const indexOfStartTagEnd = remainingTmplStr.indexOf(delimiter.end)
+    const dataKey = remainingTmplStr.substring(1, indexOfStartTagEnd)
+    const endTag = delimiter.start + '/' + dataKey + delimiter.end
+    const indexOfEndTagStart = remainingTmplStr.indexOf(endTag)
+    const innerStr = remainingTmplStr.substring(indexOfStartTagEnd + delimiter.start.length, indexOfEndTagStart)
 
-    return data => {
-      const dataValue = data2Value(data, dataKey)
-      return isMustacheFalsy(dataValue) ? innerTemplate : ``
+    return {
+      remainingTmplStr: remainingTmplStr.substring(indexOfEndTagStart + endTag.length),
+      insertionPoint: ctx => {
+        const dataValue = ctx2Value(ctx, dataKey)
+
+        return isMustacheFalsy(dataValue)
+          ? innerStr
+          : ''
+      },
     }
   }
 })

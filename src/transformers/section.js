@@ -1,32 +1,28 @@
-import { data2Value } from '../helper/dataHelper'
+import { ctx2Value } from '../helper/dataHelper'
 import { isMustacheFalsy } from '../helper/isMustacheFalsy'
 import { transform } from '../lit-transformer'
 
-// todo test for start not greedy
-// todo manual string parsing faster then RegEx?
-
 /** Note, unlike within mustache functions as data values are not supported for the time being */
 export default () => ({
-  delimiter: {
-    start: /{{#(.+?)}}/,
-    createEnd: startMatch => new RegExp(`{{\/${startMatch[1]}}}`), // "?" makes it lazy / not a greedy match
-  },
-  transform: ({ config, innerTemplate, startMatch }) => {
-    const dataKey = startMatch[1]
+  test: remainingTmplStr => remainingTmplStr[0] === '#',
+  transform: (remainingTmplStr, config) => {
+    const indexOfStartTagEnd = remainingTmplStr.indexOf(config.delimiter.end)
+    const dataKey = remainingTmplStr.substring(1, indexOfStartTagEnd)
+    const endTag = config.delimiter.start + '/' + dataKey + config.delimiter.end
+    const indexOfEndTagStart = remainingTmplStr.indexOf(endTag)
+    const innerTmpl = remainingTmplStr.substring(indexOfStartTagEnd + config.delimiter.start.length, indexOfEndTagStart)
+    const transformedInnerTmpl = transform(innerTmpl, config)
 
-    return data => {
-      const dataValue = data2Value(data, dataKey)
+    return {
+      remainingTmplStr: remainingTmplStr.substring(indexOfEndTagStart + endTag.length),
+      insertionPoint: ctx => {
+        const sectionData = ctx2Value(ctx, dataKey)
+        
+        if (isMustacheFalsy(sectionData))
+          return '';
 
-      if (isMustacheFalsy(dataValue))
-        return ``;
-
-      // todo add memorization for parsedInnerTemplate
-      const parsedInnerTemplate = transform(innerTemplate, config)
-      return renderArray(dataValue, parsedInnerTemplate)
+        return sectionData.map(innerCtx => transformedInnerTmpl(innerCtx))
+      }
     }
   }
 })
-
-function renderArray(arrayData, parsedInnerTemplate) {
-  return arrayData.map(d => parsedInnerTemplate(d))
-}

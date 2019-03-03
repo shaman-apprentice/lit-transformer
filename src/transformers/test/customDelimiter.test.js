@@ -2,8 +2,9 @@ import { renderLitInto, renderMustacheInto } from '../../../test/expectHelper'
 
 import { html } from 'lit-html'
 import createTransform from '../../lit-transformer'
-import variableTransformer from '../variable'
-import customDelimiter from '../customDelimiter'
+import transformVariable from '../transformVariable'
+import customDelimiterTransformer from '../customDelimiter'
+import commentTransformer from '../comment'
 
 describe('custom delimiter', () => {
   let transform;
@@ -11,9 +12,11 @@ describe('custom delimiter', () => {
   beforeEach(() => {
     transform = createTransform({
       html,
+      delimiter: { start: '{{', end: '}}' },
+      transformVariable,
       transformers: {
-        variable: variableTransformer(),
-        customDelimiter: customDelimiter(),
+        customDelimiter: customDelimiterTransformer(),
+        comment: commentTransformer(),
       },
     })
   })
@@ -46,6 +49,14 @@ describe('custom delimiter', () => {
     const data = {
       who: 'Mr. Alien_{{--}}_krghn',
       ['!peep']: 'you ***',
+    }
+    expectToBeEqual(template, data, transform)
+  })
+
+  it('change tag to longer than 2 chars', () => {
+    const template = "{{=<<% %>>=}}Hello <<%who%>>."
+    const data = {
+      who: 'Mr. Alien_{{--}}_krghn',
     }
     expectToBeEqual(template, data, transform)
   })

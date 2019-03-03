@@ -1,8 +1,6 @@
-import { data2Value } from '../helper/dataHelper'
+import { ctx2Value } from '../helper/dataHelper'
 
-/**
- * Note, this is unsafe to use cause the rendered output could be any JavaScript .
- */
+/** Note, this is unsafe to use, because the rendered output could be any JavaScript! */
 export default unsafeHTML => ({
   test: remainingTmplStr => remainingTmplStr[0] === '{',
   transform: (remainingTmplStr, { delimiter }) => {
@@ -10,8 +8,7 @@ export default unsafeHTML => ({
     const dataKey = remainingTmplStr.substring(1, indexOfEndDelimiter)
     return {
       remainingTmplStr: remainingTmplStr.substring(indexOfEndDelimiter + 1 + delimiter.end.length),
-      staticParts: [ ],
-      insertionPoints: [ ctx => unsafeHTML(data2Value(ctx, dataKey)) ]
+      insertionPoint: ctx => unsafeHTML(ctx2Value(ctx, dataKey)),
     }
   }
 })

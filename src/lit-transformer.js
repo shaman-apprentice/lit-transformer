@@ -2,22 +2,21 @@
  * @param {object} config = {
  *  html: lit-html.html,
  *  delimiter: { start: '{{', end: '}}' },
- *  transformVariable, 
- *  transformers: { // note that variable transformer is not here, so that it is always the last one
+ *  transformers: { // note that transformVariable is not here, so that it is always the last one
  *    name: {
  *      test: (str, config) => bool,
  *      transform: (str, config) => ({
  *        remainingTmplStr: str,
  *        staticParts: [ str ],
- *        insertionPoints: [ (ctx) => lit-html.TemplateResult ],
+ *        insertionPoint: (ctx) => lit-html.TemplateResult,
  *      }),
- *    }
+ *    },
  *  },
+ *  transformVariable, 
  * }
  * @returns {function} strTemplate => ctx => lit-html.TemplateResult
  */
-export default config =>
-  template => transform(template, config)
+export default config => template => transform(template, config)
 
 export function transform(tmpl2Parse, config) {
   const staticParts = []
@@ -32,8 +31,7 @@ export function transform(tmpl2Parse, config) {
     const transform = getTransform(remainingTmplStr, config)
     const transformResult = transform(remainingTmplStr, config)
     remainingTmplStr = transformResult.remainingTmplStr
-    staticParts.push(...transformResult.staticParts)
-    insertionPoints.push(...transformResult.insertionPoints)
+    insertionPoints.push(transformResult.insertionPoint)
   }
 
   staticParts.push(remainingTmplStr)

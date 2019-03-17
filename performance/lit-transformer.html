@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Mustache perf</title>
-    <script src="../node_modules/mustache/mustache.js"></script>
+    <title>lit-transformer perf</title>
+    <script src="../dist/litTransformer.bundle.js"></script>
     <script src="data.js"></script>
   </head>
 
@@ -13,13 +13,14 @@
   </body>
 
   <script>
+    const template = litTransformer.transform(strTemplate)
     const renderTarget = document.getElementById('short-story-content')
-    renderTarget.innerHTML = Mustache.render(strTemplate, shortStory1)
+    litTransformer.render(template(shortStory1), renderTarget)
 
     let selectedStory = shortStory1
     document.getElementById('switch-short-story').onclick = () => {
       selectedStory = selectedStory === shortStory1 ? shortStory2 : shortStory1
-      renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory)
+      litTransformer.render(template(selectedStory), renderTarget)
     }
   </script>
 </html>

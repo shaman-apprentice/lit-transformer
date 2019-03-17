@@ -1,14 +1,14 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/full-configured-lit-transformer.js',
-    mode: 'development', // todo prod / minified
-    devtool: 'source-map',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'injectCreateLitTransformer.js',
-        libraryExport: 'default',
-        library: 'createLitTransformer',
-        libraryTarget: 'window', // todo https://medium.com/@kelin2025/so-you-wanna-use-es6-modules-714f48b3a953
-    },
+  entry: './src/bundled-lit-transformer.js',
+  mode: 'production',
+  // devtool: 'source-map',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'litTransformer.bundle.js',
+    libraryExport: 'default',
+    library: 'litTransformer',
+    libraryTarget: 'window',
+  },
 };

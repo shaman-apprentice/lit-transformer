@@ -1,4 +1,4 @@
-const strTemplate = `
+strTemplate = `
   <h2>A useless short story</h2>
 
   {{{version}}}
@@ -40,7 +40,7 @@ const strTemplate = `
   <h4>The end</h4>
 `
 
-const shortStory1 = {
+shortStory1 = {
   version: '<em>Version 1</em>',
   who: 'little alien',
   what: 'a lovely galaxy',
@@ -53,7 +53,7 @@ const shortStory1 = {
   ],
 }
 
-const shortStory2 = {
+shortStory2 = {
   version: '<em>Version 2</em>',
   who: 'Mr. Chuck Norris',
   what: 'my front yard',
@@ -64,17 +64,4 @@ const shortStory2 = {
     { what: 'clean the kitchen', open: false },
     { what: 'save the world', open: false },
   ],
-}
-
-init()
-
-function init() {
-  const renderTarget = document.getElementById('short-story-content')
-  renderTarget.innerHTML = Mustache.render(strTemplate, shortStory1)
-
-  let selectedStory = shortStory1
-  document.getElementById('switch-short-story').onclick = () => {
-    selectedStory = selectedStory === shortStory1 ? shortStory2 : shortStory1
-    renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory)
-  }
 }

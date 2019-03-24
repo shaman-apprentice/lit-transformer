@@ -33,7 +33,7 @@ function createStupidServer() {
         process.exit(1)
       }
   
-      response.setHeader('Content-type', 'html')
+      response.setHeader('Content-type', 'text/' +request.url.slice(request.url.lastIndexOf('.') + 1))
       response.end(data)
     })
   })

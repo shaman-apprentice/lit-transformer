@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <title>lit-transformer perf</title>
     <script src="../dist/litTransformer.bundle.js"></script>
-    <script src="data.js"></script>
+    <script src="assets/data.js"></script>
   </head>
 
   <body>
+    <h2>A useless short story</h2>
+    <p>All credits and thanks for the art goes to <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a>, <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a> and <a href="https://www.asciiart.eu/space/other">here</a>, from where I have shamelessly copy pasted. </p>
     <button id="switch-short-story">Switch Short Story</button>
-    <section id="short-story-content"></section>
+    
+    <section id="short-story-container"></section>
   </body>
 
   <script>
     const template = litTransformer.transform(strTemplate)
-    const renderTarget = document.getElementById('short-story-content')
+    const renderTarget = document.getElementById('short-story-container')
     litTransformer.render(template(shortStory1), renderTarget)
 
     let selectedStory = shortStory1

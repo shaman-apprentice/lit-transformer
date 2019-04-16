@@ -17,12 +17,3 @@ transformer.parse('<div>Hello {{who}}</div>') // is the same as
 html(['<div>Hello ', '</div>'], ...[ ctx => ctx.who ]) // is the same as
 html`<div>${who}</div>`
 ```
-
-## TODOS
-- performance test
-    - string parsing instead of RegEx?
-- docu / examples
-    - list of which syntax is supported
-    - custom extending of parser
-    - and implement more^^
-- eslint

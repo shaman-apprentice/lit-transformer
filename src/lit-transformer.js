@@ -16,7 +16,7 @@
  * }
  * @returns {function} strTemplate => ctx => lit-html.TemplateResult
  */
-export default config => template => transform(template, config)
+export default config => strTemplate => transform(strTemplate, config)
 
 export function transform(tmpl2Parse, config) {
   const staticParts = []

@@ -3,27 +3,32 @@
   <head>
     <meta charset="UTF-8">
     <title>lit-transformer perf</title>
-    <script src="../dist/litTransformer.bundle.js"></script>
-    <script src="assets/data.js"></script>
   </head>
 
   <body>
-    <h2>A useless short story</h2>
-    <p>All credits and thanks for the art goes to <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a>, <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a> and <a href="https://www.asciiart.eu/space/other">here</a>, from where I have shamelessly copy pasted. </p>
-    <button id="switch-short-story">Switch Short Story</button>
-    
-    <section id="short-story-container"></section>
+    <button id="switch-short-story">Switch short story</button>
+    <div id="app"></div>
+
+    <script type="module">
+      import { html, render } from '../node_modules/lit-html/lit-html.js';
+      import {unsafeHTML} from '../node_modules/lit-html/directives/unsafe-html.js'
+      import createTransformer from '../src/full-configured-lit-transformer.js';
+
+      import { strTemplate } from './strTemplate.js';
+      import { shortStory1, shortStory2 } from './templateData.js';
+
+      const renderData = createTransformer(html, unsafeHTML)(strTemplate);
+      const renderTarget = document.getElementById('app');
+  
+      let selectedStory = shortStory1;
+      render(renderData(selectedStory), renderTarget);
+      document.getElementById('switch-short-story').onclick = () => {
+        selectedStory = selectedStory === shortStory1
+          ? shortStory2
+          : shortStory1;
+
+        render(renderData(selectedStory), renderTarget)
+      }
+    </script>
   </body>
-
-  <script>
-    const template = litTransformer.transform(strTemplate)
-    const renderTarget = document.getElementById('short-story-container')
-    litTransformer.render(template(shortStory1), renderTarget)
-
-    let selectedStory = shortStory1
-    document.getElementById('switch-short-story').onclick = () => {
-      selectedStory = selectedStory === shortStory1 ? shortStory2 : shortStory1
-      litTransformer.render(template(selectedStory), renderTarget)
-    }
-  </script>
 </html>

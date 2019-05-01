@@ -3,26 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <title>Mustache perf</title>
-    <script src="../node_modules/mustache/mustache.js"></script>
-    <script src="assets/data.js"></script>
   </head>
 
   <body>
-    <h2>A useless short story</h2>
-    <p>All credits and thanks for the art goes to <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a>, <a href="https://codepen.io/servinnissen/pen/yYbmrm">here</a> and <a href="https://www.asciiart.eu/space/other">here</a>, from where I have shamelessly copy pasted. </p>
-    <button id="switch-short-story">Switch Short Story</button>
-
-    <section id="short-story-container"></section>
+      <button id="switch-short-story">Switch short story</button>
+      <div id="app"></div>
   </body>
 
-  <script>
-    const renderTarget = document.getElementById('short-story-container')
-    renderTarget.innerHTML = Mustache.render(strTemplate, shortStory1)
+  <script src="../node_modules/mustache/mustache.js"></script>
+  <script type="module">
+    import { strTemplate } from './strTemplate.js';
+    import { shortStory1, shortStory2 } from './templateData.js';
 
-    let selectedStory = shortStory1
+    const renderTarget = document.getElementById('app');
+
+    let selectedStory = shortStory1;
+    renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory);
     document.getElementById('switch-short-story').onclick = () => {
-      selectedStory = selectedStory === shortStory1 ? shortStory2 : shortStory1
-      renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory)
+      selectedStory = selectedStory === shortStory1
+        ? shortStory2
+        : shortStory1;
+
+      renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory);
     }
   </script>
 </html>

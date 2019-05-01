@@ -16,9 +16,9 @@ import { html } from 'lit-html'
 
 const transformer = createTransformer(html)
 
-transformer.parse('<div>Hello {{who}}</div>') // is the same as
-ctx => html([ '<div>Hello ', '</div>' ], ...[ ctx => ctx.who ]) // is the same as
+transformer.parse('<div>Hello {{who}}!</div>') // is the same as
+ctx => html([ '<div>Hello ', '!</div>' ], ...[ ctx => ctx.who ]) // is the same as
 ctx => html`<div>${ctx.who}</div>`
 ```
 
-[Working demo](https://shaman-apprentice.github.io/lit-transformer/demo/demo.html)
+[Try it out in live demo!](https://stackblitz.com/edit/js-aqkbzt?embed=1&file=index.js)

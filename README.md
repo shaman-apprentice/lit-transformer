@@ -21,4 +21,4 @@ ctx => html([ '<div>Hello ', '!</div>' ], ...[ ctx => ctx.who ]) // is the same 
 ctx => html`<div>${ctx.who}</div>`
 ```
 
-[Try it out in live demo!](https://stackblitz.com/edit/js-aqkbzt?embed=1&file=index.js)
+[Try it out in this live demo!](https://stackblitz.com/edit/js-aqkbzt?embed=1&file=index.js)

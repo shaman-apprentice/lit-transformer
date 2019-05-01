@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="">
+    <title>lit-vs-mustache</title>
+
+    <style>
+      .container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+      }
+
+      iframe {
+        width: 100%;
+        height: 923px;
+      }
+    </style>
+
+    <script src="../node_modules/mustache/mustache.js"></script>
+    <script type="module">
+        import {html, render as render} from '../node_modules/lit-html/lit-html.js';
+        import {unsafeHTML} from '../node_modules/lit-html/directives/unsafe-html.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+          renderAll();
+          window.renderAll = renderAll;
+
+          function renderAll() {
+            renderMustache();
+            renderLitHtml();
+          }
+
+          function renderMustache() {
+            document.querySelector("#mustache-container").innerHTML = Mustache.render(`
+              <h3><a href="https://github.com/janl/mustache.js/">mustache.js</a></h3>
+              <iframe src="pink.html"></iframe>
+            `, {});
+          }
+
+          function renderLitHtml() {
+            render(html`${unsafeHTML(`
+              <h3><a href="https://github.com/Polymer/lit-html">lit-html</a></h3>
+              <iframe src="pink.html"></iframe>
+            `)}`, document.querySelector("#lit-html-container"));
+          }
+        });
+      </script>
+  </head>
+
+  <body>
+    <button onclick="renderAll()">Re-render</button>
+    <div class="container">
+      <div id="mustache-container"></div>
+      <div id="lit-html-container"></div>
+    </div>
+  </body>
+</html>

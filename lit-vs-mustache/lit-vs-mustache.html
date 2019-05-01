@@ -17,10 +17,10 @@
       }
     </style>
 
-    <script src="../node_modules/mustache/mustache.js"></script>
+    <script src="https://unpkg.com/mustache@3.0.1"></script>
     <script type="module">
-        import {html, render as render} from '../node_modules/lit-html/lit-html.js';
-        import {unsafeHTML} from '../node_modules/lit-html/directives/unsafe-html.js';
+        import {html, render} from 'https://unpkg.com/lit-html?module@1.0.0';
+        import {unsafeHTML} from 'https://unpkg.com/lit-html/directives/unsafe-html.js?module@1.0.0';
         
         document.addEventListener('DOMContentLoaded', () => {
           renderAll();

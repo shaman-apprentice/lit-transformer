@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="">
+    <link rel="shortcut icon" href="#">
     <title>lit-vs-mustache</title>
 
     <style>
@@ -19,33 +19,36 @@
 
     <script src="https://unpkg.com/mustache@3.0.1"></script>
     <script type="module">
-        import {html, render} from 'https://unpkg.com/lit-html?module@1.0.0';
-        import {unsafeHTML} from 'https://unpkg.com/lit-html/directives/unsafe-html.js?module@1.0.0';
-        
-        document.addEventListener('DOMContentLoaded', () => {
-          renderAll();
-          window.renderAll = renderAll;
+      import {html, render} from 'https://unpkg.com/lit-html?module@1.0.0';
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        let renderedXTimes = 0;
+        renderAll();
+        window.renderAll = renderAll;
 
-          function renderAll() {
-            renderMustache();
-            renderLitHtml();
-          }
+        function renderAll() {
+          renderedXTimes += 1;
+          renderMustache(renderedXTimes);
+          renderLitHtml(renderedXTimes);
+        }
 
-          function renderMustache() {
-            document.querySelector("#mustache-container").innerHTML = Mustache.render(`
-              <h3><a href="https://github.com/janl/mustache.js/">mustache.js</a></h3>
-              <iframe src="pink.html"></iframe>
-            `, {});
-          }
+        function renderMustache(x) {
+          document.querySelector("#mustache-container").innerHTML = Mustache.render(`
+            <h3><a href="https://github.com/janl/mustache.js/">mustache.js</a></h3>
+            <p>Rendered {{x}} times</p>
+            <iframe src="pink.html"></iframe>
+          `, { x });
+        }
 
-          function renderLitHtml() {
-            render(html`${unsafeHTML(`
-              <h3><a href="https://github.com/Polymer/lit-html">lit-html</a></h3>
-              <iframe src="pink.html"></iframe>
-            `)}`, document.querySelector("#lit-html-container"));
-          }
-        });
-      </script>
+        function renderLitHtml(x) {
+          render(html`
+            <h3><a href="https://github.com/Polymer/lit-html">lit-html</a></h3>
+            <p>Rendered ${x} times</p>
+            <iframe src="pink.html"></iframe>
+          `, document.querySelector("#lit-html-container"));
+        }
+      });
+    </script>
   </head>
 
   <body>

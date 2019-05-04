@@ -16,23 +16,40 @@
         height: 250px;
         width: 320px;
       }
+
+      .xAxisLabel {
+        font-style: italic;
+      }
     </style>
   
     <script src="https://unpkg.com/chart.js@2.8.0"></script>
   </head>
 
   <body>
+    <h2>lit-transformer (lit-html) vs mustache performance</h3>
+    <p>
+      The following is the result of prototyping some automated perfomance tests with <a href="https://github.com/GoogleChrome/puppeteer">puppeteer</a>. The same <a href="https://shaman-apprentice.github.io/lit-transformer/performance/run/strTemplate.js">template</a> and <a href="https://shaman-apprentice.github.io/lit-transformer/performance/run/templateData.js">template data</a> is used in the <a href="https://github.com/shaman-apprentice/lit-transformer/blob/master/performance/run/lit-transformer.html">lit-transformer demo</a> and <a href="https://github.com/shaman-apprentice/lit-transformer/blob/master/performance/run/mustache.html">mustache demo</a>, which look like <b><a href="https://shaman-apprentice.github.io/lit-transformer/performance/results/mustache-github-example.html">this</a></b>. The results are the mean value of 100 runs.
+    </p>
+    
     <div class="chart-section">
-    <div class="chart-container">
-      <canvas id="ScriptDuration" height="250px"></canvas>
+      <div class="chart-container">
+        <canvas id="ScriptDuration" height="250px"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="RecalcStyleDuration" height="250px"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="LayoutDuration" height="250px"></canvas>
+      </div>
     </div>
-    <div class="chart-container">
-      <canvas id="RecalcStyleDuration" height="250px"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas id="LayoutDuration" height="250px"></canvas>
-    </div>
-  </div>
+
+    <p>
+      The first data point <span class="xAxisLabel">(initial render)</span> is taken after the page is fully loaded. The second <span class="xAxisLabel">(changed data)</span> and third <span class="xAxisLabel">(changed data back)</span> is measured after clicking the button to change the data in the next <code>requestIdleCallback</code>.
+    </p>
+
+    <p>
+      As you can see <code>ScriptDuration</code> and <code>LayoutDuration</code> is pretty much the same. But in <code>RecalcStyleDuration</code> you can see the advantage of re-rendering only the insertion points, as it is done by lit-html, over re-rendering complete <code>innerHTML</code>, as done by mustache.
+    </p>
 
     <script>
       Promise.all([ loadJSON('./mustache.json'), loadJSON('./lit-transformer.json') ])

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mustache perf</title>
+  </head>
+
+  <body>
+      <button id="switch-short-story">Switch short story</button>
+      <div id="app"></div>
+  </body>
+
+  <script src="https://unpkg.com/mustache@3.0.1"></script>
+  <script type="module">
+    import { strTemplate } from './strTemplate.js';
+    import { shortStory1, shortStory2 } from './templateData.js';
+
+    const renderTarget = document.getElementById('app');
+
+    let selectedStory = shortStory1;
+    renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory);
+    document.getElementById('switch-short-story').onclick = () => {
+      selectedStory = selectedStory === shortStory1
+        ? shortStory2
+        : shortStory1;
+
+      renderTarget.innerHTML = Mustache.render(strTemplate, selectedStory);
+    }
+  </script>
+</html>

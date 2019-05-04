@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+/** @return [ metrics after DomContentLoaded, story switched, story switched back ]  */
 module.exports.measure = async (url, metricNames, debug) => {
   const browser = await puppeteer.launch({ headless: !debug })
   

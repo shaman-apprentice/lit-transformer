@@ -7,7 +7,7 @@
  *      test: (str, config) => bool,
  *      transform: (str, config) => ({
  *        remainingTmplStr: str,
- *        insertionPoint: (ctx) => lit-html.TemplateResult,
+ *        insertionPoint: (ctx) => lit-html.TemplateResult | undefined, // if undefined remainingTmplStr will be merged with last static part 
  *      }),
  *    },
  *  },
@@ -22,8 +22,8 @@ export function transform(tmpl2Parse, config) {
   const insertionPoints = []
 
   let remainingTmplStr = tmpl2Parse
-  let startIndexOfIP
-  while (0 <= (startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start))) {
+  let startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start)
+  while (startIndexOfIP >= 0) {
     staticParts.push(remainingTmplStr.substring(0, startIndexOfIP))
     remainingTmplStr = remainingTmplStr.substring(startIndexOfIP + config.delimiter.start.length)
 
@@ -34,8 +34,15 @@ export function transform(tmpl2Parse, config) {
     if (transformResult.remainingTmplStr.length + config.delimiter.end.length >= remainingTmplStr.length)
       throw new Error(`'${tmpl2Parse}' is not a valid template - got stuck at '${remainingTmplStr}'`)
 
-    remainingTmplStr = transformResult.remainingTmplStr
-    insertionPoints.push(transformResult.insertionPoint)
+    if (transformResult.insertionPoint) {
+      remainingTmplStr = transformResult.remainingTmplStr
+      insertionPoints.push(transformResult.insertionPoint)
+      startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start)
+    } else { // e.g. comment or customDelimeter
+      const lastStaticPart = staticParts.pop()
+      remainingTmplStr = lastStaticPart + transformResult.remainingTmplStr
+      startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start, lastStaticPart.length)
+    }
   }
 
   staticParts.push(remainingTmplStr)

@@ -22,3 +22,14 @@ ctx => html`<div>${ctx.who}</div>`
 ```
 
 [Try it out in this live demo!](https://stackblitz.com/edit/js-aqkbzt?embed=1&file=index.js)
+
+## Out of the box supported template types
+| Template type |   Supported   |   Note        |
+| ------------- |:-------------:| -------------:|
+| [Variables](https://github.com/janl/mustache.js/#variables) `{{var}}`      | ✔ | `{{&var}}` is not supported |
+| [Sections](https://github.com/janl/mustache.js/#sections) `{{#var}}...{{/var}}`     | ✔ | function as `var` is not supported
+| [Functions](https://github.com/janl/mustache.js/#functions) | ✗ |
+| [Inverted Sections](https://github.com/janl/mustache.js/#inverted-sections) `{{^var}}...{{/var}}` | ✔ |
+| [Comments](https://github.com/janl/mustache.js/#comments) `{{!...}}` | ✔ |
+| [Partials](https://github.com/janl/mustache.js/#partials) | ✗ |
+| [Custom Delimiters](https://github.com/janl/mustache.js/#custom-delimiters) `{{=<% %>=}}` | ✔ |

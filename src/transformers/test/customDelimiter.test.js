@@ -32,7 +32,7 @@ describe('custom delimiter', () => {
   it('change tag and resetting it does work', () => {
     const template = `
       {{=<% %>=}}
-        Hello <%who%>. If I m say so, '_{{--}}_krghn' are weird characters within a name.
+        Hello <%who%>. If I may say so, '_{{--}}_krghn' are weird characters within a name.
       <%={{ }}=%> 
       At least for a name at {{where}}.
     `

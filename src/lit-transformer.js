@@ -7,7 +7,6 @@
  *      test: (str, config) => bool,
  *      transform: (str, config) => ({
  *        remainingTmplStr: str,
- *        staticParts: [ str ],
  *        insertionPoint: (ctx) => lit-html.TemplateResult,
  *      }),
  *    },

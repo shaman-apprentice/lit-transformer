@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>lit-transformer vs mustache performance</title>
+
+    <style>
+      .chart-section {
+        display: grid;
+        width: 1000px;
+        grid-template-columns: 33% 33% 33%;
+      }
+
+      .chart-container {
+        position: relative;
+        height: 250px;
+        width: 320px;
+      }
+    </style>
+  
+    <script src="../../node_modules/chart.js/dist/Chart.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <div class="chart-section">
+    <div class="chart-container">
+      <canvas id="ScriptDuration" height="250px"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="RecalcStyleDuration" height="250px"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="LayoutDuration" height="250px"></canvas>
+    </div>
+  </div>
+
+    <script>
+      Promise.all([ loadJSON('./mustache.json'), loadJSON('./lit-transformer.json') ])
+        .then(([mustacheData, litTransformerData]) => {
+          drawChart('ScriptDuration', mustacheData, litTransformerData);
+          drawChart('RecalcStyleDuration', mustacheData, litTransformerData);
+          drawChart('LayoutDuration', mustacheData, litTransformerData);
+        })
+
+      function drawChart(metricName, mustacheData, litTransformerData) {
+        new Chart(document.getElementById(metricName), {
+          type: 'bar',
+          data: {
+            labels: [ ['initial', ' render'], ['changed', 'data'], ['changed', 'data back'] ],
+            datasets: [
+              {
+                label: 'mustache',
+                backgroundColor: 'blue', borderColor: 'blue', fill: false,
+                data: mustacheData.map(d => d[metricName] * 1000),
+              },
+              {
+                label: 'lit-transformer',
+                backgroundColor: 'red', borderColor: 'red', fill: false,
+                data: litTransformerData.map(d => d[metricName] * 1000),
+              },
+            ]
+          },
+          options: {
+            title: { display: true, text: metricName },
+            scales: {
+              yAxes: [{ scaleLabel: { display: true, labelString: 'time / ms' } }],
+            },
+          }
+        });
+      }
+
+      function loadJSON(url) {
+        return new Promise(res => {
+          const xhr = new XMLHttpRequest();
+          xhr.onload = () => 
+            res(JSON.parse(xhr.responseText));
+          xhr.open('GET', url, true);
+          xhr.send();
+        });
+      }
+    </script>
+  </body>
+</html>

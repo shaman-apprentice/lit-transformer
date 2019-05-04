@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "chart.js": "^2.8.0",
     "dom-compare": "^0.3.2",
     "jest": "^24.1.0",
     "lit-html": "^1.0.0",

@@ -3,25 +3,21 @@ const fs = require('fs');
 
 const { measure } = require('./puppeteer');
 
+/* config */
+const metricNames = [ 'ScriptDuration', 'RecalcStyleDuration', 'LayoutDuration' ]
+const debug = false;
+
+
 (async () => {
   const server = createStupidServer()
   server.listen(4242)
 
-  const metricNames = [ 'ScriptDuration', 'RecalcStyleDuration', 'LayoutDuration' ]
-  const mustacheData = await measure('http://127.0.0.1:4242/performance/mustache.html', metricNames, false)
-  const litTransformerData = await measure('http://127.0.0.1:4242/performance/lit-transformer.html', metricNames, false)
+  const mustacheData = await measure('http://127.0.0.1:4242/performance/run/mustache.html', metricNames, debug)
+  const litTransformerData = await measure('http://127.0.0.1:4242/performance/run/lit-transformer.html', metricNames, debug)
 
-  // const diff = Object.keys(litTransformerData).reduce((acc, key) => {
-  //   acc[key] = mustacheData[key] - litTransformerData[key]
-  //   return acc
-  // }, {})
-  // console.log(diff)
-  
-  console.log(mustacheData)
-  console.log('------------------------')
-  console.log(litTransformerData)
-  // todo write in json and evaluate somewhere else
-  // todo debug and metrics as args
+  fs.writeFileSync('./performance/results/mustache.json', JSON.stringify(mustacheData, null, 2))
+  fs.writeFileSync('./performance/results/lit-transformer.json', JSON.stringify(litTransformerData, null, 2))
+
   server.close();
 })()
 
@@ -33,7 +29,7 @@ function createStupidServer() {
       return
     }
   
-    fs.readFile(`${__dirname}/../${request.url}`, (err, data) => {
+    fs.readFile(`${__dirname}/../../${request.url}`, (err, data) => {
       if (err) {
         console.error(err)
         process.exit(1)

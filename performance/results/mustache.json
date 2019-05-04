@@ -1,0 +1,20 @@
+[
+  {
+    "DomContentLoaded": 1000067.602858,
+    "ScriptDuration": 0.00869,
+    "RecalcStyleDuration": 0.000719,
+    "LayoutDuration": 0.06525
+  },
+  {
+    "DomContentLoaded": 1000067.602858,
+    "ScriptDuration": 0.0006619999999999994,
+    "RecalcStyleDuration": 0.0002949999999999999,
+    "LayoutDuration": 0.0062470000000000026
+  },
+  {
+    "DomContentLoaded": 1000067.602858,
+    "ScriptDuration": 0.009126,
+    "RecalcStyleDuration": 0.000943,
+    "LayoutDuration": 0.0679
+  }
+]

@@ -1,4 +1,4 @@
-import { expectTemplatesInnerHTML, expectTemplatesDom } from '../../test/expectHelper'
+import { expectTemplatesInnerHTML, expectTemplatesDom } from './expectHelper'
 
 describe('data bindings', () => {
   it('{{ before {{{', () => {

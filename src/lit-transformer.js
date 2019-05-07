@@ -2,12 +2,12 @@
  * @param {object} config = {
  *  html: lit-html.html,
  *  delimiter: { start: '{{', end: '}}' },
- *  transformers: { // note that transformVariable is not here, so that it is always the last one
+ *  transformers: { // note that transformVariable is not here. It gets applied when no transformer.test has passed
  *    name: {
  *      test: (str, config) => bool,
  *      transform: (str, config) => ({
  *        remainingTmplStr: str,
- *        insertionPoint: (ctx) => lit-html.TemplateResult | undefined, // if undefined remainingTmplStr will be merged with last static part 
+ *        insertionPoint: ctx => lit-html.TemplateResult | undefined, // if undefined remainingTmplStr will be merged with last static part 
  *      }),
  *    },
  *  },

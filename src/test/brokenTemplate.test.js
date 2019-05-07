@@ -11,7 +11,7 @@ describe('broken templates', () => {
     expect(() => transform('Hello {{who?')).toThrow()
   })
 
-  it('exception includes full template and where it got stuck', () => {
-    expect(() => transform('Hello {{who?')).toThrow(/'Hello {{who\?'.*'who\?'/)
+  it('exception includes where it got stuck', () => {
+    expect(() => transform('Hello {{who?')).toThrow('missing end delimiter at: \'Hello {{who?')
   })
 })

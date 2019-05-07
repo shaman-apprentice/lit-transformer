@@ -24,23 +24,23 @@ export function transform(tmpl2Parse, config) {
   let remainingTmplStr = tmpl2Parse
   let startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start)
   while (startIndexOfIP >= 0) {
+    if (remainingTmplStr.indexOf(config.delimiter.end, startIndexOfIP) < 0)
+      throw new Error(`missing end delimiter at: '${remainingTmplStr}'`)
+
     staticParts.push(remainingTmplStr.substring(0, startIndexOfIP))
-    remainingTmplStr = remainingTmplStr.substring(startIndexOfIP + config.delimiter.start.length)
 
-    const transform = getTransform(remainingTmplStr, config)
-    const transformResult = transform(remainingTmplStr, config)
+    const iPTransformResult = transformIP(
+      remainingTmplStr.substring(startIndexOfIP + config.delimiter.start.length),
+      config
+    )
 
-    // a template must become smaller with each transformation - if not there was probably a start tag without a closing tag
-    if (transformResult.remainingTmplStr.length + config.delimiter.end.length >= remainingTmplStr.length)
-      throw new Error(`'${tmpl2Parse}' is not a valid template - got stuck at '${remainingTmplStr}'`)
-
-    if (transformResult.insertionPoint) {
-      remainingTmplStr = transformResult.remainingTmplStr
-      insertionPoints.push(transformResult.insertionPoint)
+    if (iPTransformResult.insertionPoint) {
+      remainingTmplStr = iPTransformResult.remainingTmplStr
+      insertionPoints.push(iPTransformResult.insertionPoint)
       startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start)
     } else { // e.g. comment or customDelimeter
       const lastStaticPart = staticParts.pop()
-      remainingTmplStr = lastStaticPart + transformResult.remainingTmplStr
+      remainingTmplStr = lastStaticPart + iPTransformResult.remainingTmplStr
       startIndexOfIP = remainingTmplStr.indexOf(config.delimiter.start, lastStaticPart.length)
     }
   }
@@ -51,10 +51,10 @@ export function transform(tmpl2Parse, config) {
     config.html(staticParts, ...insertionPoints.map(iP => iP(ctx)))
 }
 
-
-function getTransform(remainingTmplStr, config) {
+function transformIP(remainingTmplStr, config) {
   const transformer = Object.values(config.transformers).find(t => t.test(remainingTmplStr, config))
-  return transformer
+  const transformFunction = transformer
     ? transformer.transform
     : config.transformVariable
+  return transformFunction(remainingTmplStr, config)
 }

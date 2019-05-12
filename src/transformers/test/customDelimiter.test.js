@@ -1,6 +1,8 @@
+import { html } from 'lit-html'
+import Mustache from 'mustache'
+
 import { renderLitInto, renderMustacheInto } from '../../../test/expectHelper'
 
-import { html } from 'lit-html'
 import createTransform from '../../lit-transformer'
 import transformVariable from '../variable'
 import customDelimiterTransformer from '../customDelimiter'
@@ -60,6 +62,17 @@ describe('custom delimiter', () => {
     }
     expectToBeEqual(template, data, transform)
   })
+
+  it('missing end tag', () => {
+    const template = "{{=<<% %>>}}Hello <<%who%>>."
+    const data = {
+      who: 'Mr. Alien_{{--}}_krghn',
+    }
+    expect(() => Mustache.render(template, data)).toThrow()
+    expect(() => renderLitInto(template, data)).toThrow()
+  })
+
+
 })
 
 // due to different count of text nodes for now special expect here

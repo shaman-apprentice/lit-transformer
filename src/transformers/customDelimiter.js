@@ -3,8 +3,10 @@ export default () => ({
   transform: (remainingTmplStr, config) => {
     const originalEndDeliLength = config.delimiter.end.length
     const indexOfEndTag = remainingTmplStr.indexOf('=' + config.delimiter.end)
-    const innerTmpl = remainingTmplStr.substring(1, indexOfEndTag)
-    const [ newStartDeli, newEndDeli ] = innerTmpl.split(' ')
+    if (indexOfEndTag < 0 )
+      throw new Error(`missing end delimiter at: '${remainingTmplStr}'`)
+
+    const [ newStartDeli, newEndDeli ] = remainingTmplStr.substring(1, indexOfEndTag).split(' ')
 
     config.delimiter.start = newStartDeli
     config.delimiter.end = newEndDeli

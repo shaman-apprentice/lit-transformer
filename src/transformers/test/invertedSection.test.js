@@ -1,4 +1,6 @@
-import { expectTemplatesInnerHTML } from '../../../test/expectHelper'
+import Mustache from 'mustache'
+
+import { expectTemplatesInnerHTML, renderLitInnerHtml } from '../../../test/expectHelper'
 
 describe('inverted section', () => {
   it('falsy inverted section with undefined', () => {
@@ -11,5 +13,12 @@ describe('inverted section', () => {
     const template = 'Hello {{^who}}for real{{/who}}!'
     const data = { who: ['Dr.', ' Who'] }
     expectTemplatesInnerHTML(template, data)
+  })
+
+  it('inverted section without end tag', () => {
+    const template = '{{^who}no one{{/nobody}}'
+    const data = { list: [ {x:1}, {x:2} ] }
+    expect(() => Mustache.render(template, data)).toThrow()
+    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter for inverted section: \'{{^who}no one{{/nobody}}\'')
   })
 })

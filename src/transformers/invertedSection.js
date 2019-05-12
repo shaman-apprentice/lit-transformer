@@ -8,6 +8,9 @@ export default () => ({
     const dataKey = remainingTmplStr.substring(1, indexOfStartTagEnd)
     const endTag = delimiter.start + '/' + dataKey + delimiter.end
     const indexOfEndTagStart = remainingTmplStr.indexOf(endTag)
+    if (indexOfEndTagStart < 0)
+      throw new Error(`missing end delimiter for inverted section: '${delimiter.start}${remainingTmplStr}'`)
+
     const innerStr = remainingTmplStr.substring(indexOfStartTagEnd + delimiter.start.length, indexOfEndTagStart)
 
     return {

@@ -5,7 +5,7 @@ import Mustache from 'mustache'
 
 import { compare } from 'dom-compare'
 
-import createTransform from '../src/full-configured-lit-transformer'
+import createTransform from '../src/lit-transformer-configuredOutOfTheBox'
 
 const defaultTransform = createTransform(html, unsafeHTML)
 

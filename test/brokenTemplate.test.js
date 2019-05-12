@@ -1,7 +1,7 @@
 import { html, render } from 'lit-html'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
 
-import createTransform from '../src/full-configured-lit-transformer'
+import createTransform from '../src/lit-transformer-configuredOutOfTheBox'
 
 const transform = createTransform(html, unsafeHTML)
 

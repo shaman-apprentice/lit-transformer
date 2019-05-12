@@ -4,7 +4,7 @@ import Mustache from 'mustache'
 import { renderLitInto, renderMustacheInto } from '../../../test/expectHelper'
 
 import createTransform from '../../lit-transformer'
-import transformVariable from '../variable'
+import transformVariable from '../variableTransformer'
 import customDelimiterTransformer from '../customDelimiter'
 import commentTransformer from '../comment'
 

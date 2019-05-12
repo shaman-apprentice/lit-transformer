@@ -1,10 +1,10 @@
-import createTransform from './lit-transformer.js'
-import transformVariable from './transformers/variable.js'
-import unsafeVariableTransformer from './transformers/unsafeVariable.js'
-import sectionTransformer from './transformers/section.js'
-import invertedSectionTransformer from './transformers/invertedSection.js'
-import commentTransformer from './transformers/comment.js'
-import customDelimiterTransformer from './transformers/customDelimiter.js'
+import createTransform from './lit-transformer'
+import transformVariable from './transformers/variableTransformer'
+import unsafeVariableTransformer from './transformers/unsafeVariable'
+import sectionTransformer from './transformers/section'
+import invertedSectionTransformer from './transformers/invertedSection'
+import commentTransformer from './transformers/comment'
+import customDelimiterTransformer from './transformers/customDelimiter'
 
 export default (html, unsafeHTML) =>
   createTransform({

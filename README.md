@@ -76,9 +76,9 @@ const mustache2litHtml = createTransformer({
     customUnescapedVariable: {
       test: remainingTmplStr => remainingTmplStr[0] === '&',
       transform: (remainingTmplStr, config) => {
-        return config.transformers.unsafeVariable.transform(insert3rdBraceForUnsaveVariabe(remainingTmplStr), config);
+        return config.transformers.unsafeVariable.transform(insert3rdBraceForUnsaveVariable(remainingTmplStr), config);
 
-        function insert3rdBraceForUnsaveVariabe(remainingTmplStr) {
+        function insert3rdBraceForUnsaveVariable(remainingTmplStr) {
           const i = remainingTmplStr.indexOf(config.delimiter.end);
           return remainingTmplStr.substring(0, i) + '}' + remainingTmplStr.substring(i);
         }

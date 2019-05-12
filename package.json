@@ -1,14 +1,10 @@
 {
   "name": "lit-transformer",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "src/lit-transformer-configuredOutOfTheBox.js",
   "license": "ISC",
   "description": "transforms a mustache like template into a lit-html template",
-  "keywords": [
-    "template",
-    "lit-html",
-    "mustache"
-  ],
+  "keywords": [ "template", "transform", "lit-html", "mustache" ],
   "repository": {
     "type": "git",
     "url": "https://github.com/shaman-apprentice/lit-transformer.git"

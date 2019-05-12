@@ -1,3 +1,13 @@
 export function ctx2Value(ctx, key) {
-  return key.split('.').reduce((acc, key) => key ? acc[key] : acc, ctx)
+  if (key === '.')
+    return ctx
+
+  let result = ctx
+  for (let k of key.split('.')) {
+    if (!result.hasOwnProperty(k))
+      return ''
+
+    result = result[k]
+  }
+  return result;
 }

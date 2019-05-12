@@ -24,4 +24,9 @@ describe('section', () => {
     const data = { persons: [ { person: 'Mr. first' }, { person: 'Mr. second' } ] }
     expectTemplatesInnerHTML(template, data)
   })
+
+  it('data binding in list with null pointer exception', () => {
+    const data = { list: [ {x:1}, {x:2} ] }
+    expectTemplatesInnerHTML('{{#list}}{{x.y}}{{/list}}', data)
+  })
 })

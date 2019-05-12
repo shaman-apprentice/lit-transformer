@@ -35,4 +35,16 @@ describe('variable', () => {
     expect(renderLitInnerHtml('{{someHtml}}', { someHtml: '<p>I am a smart paragraph</p>' }))
       .toBe('&lt;p&gt;I am a smart paragraph&lt;/p&gt;') // mustache does encode '/' as '&#x2F;' but I guess this difference is fine
   })
+
+  it('data binding with none existing key', () => {
+    expectTemplatesInnerHTML('hi {{who}}', {})
+  })
+
+  it('data binding with null pointer exception', () => {
+    expectTemplatesInnerHTML('hi {{a.b}}', {})
+  })
+
+  it('false as value', () => {
+    expectTemplatesInnerHTML('hi {{who}}', { who: false })
+  })
 })

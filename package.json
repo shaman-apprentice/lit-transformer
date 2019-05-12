@@ -26,8 +26,6 @@
     "jest": "^24.1.0",
     "lit-html": "^1.0.0",
     "mustache": "^3.0.1",
-    "puppeteer": "^1.13.0",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "puppeteer": "^1.13.0"
   }
 }

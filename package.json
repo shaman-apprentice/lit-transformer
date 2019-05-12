@@ -11,7 +11,7 @@
   },
   "files": [
     "/src/",
-    "!/src/test/"
+    "!/**/test/"
   ],
   "author": "shaman-apprentice",
   "private": false,

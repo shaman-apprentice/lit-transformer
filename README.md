@@ -3,7 +3,7 @@
 > 🛠  ... work in progress ... 
 
 ## Motivation
-Assuming you use cool [mustache.js](https://github.com/janl/mustache.js/) in many places. Recently you have started to use [lit-html](https://github.com/polymer/lit-html), which is in at least some scenarios even cooler ([[1]](https://shaman-apprentice.github.io/lit-transformer/lit-vs-mustache/lit-vs-mustache.html), [[2]](https://shaman-apprentice.github.io/lit-transformer/performance/results/evaluation.html)).
+Assuming you use cool [mustache.js](https://github.com/janl/mustache.js/) in many places. Recently you have started to use [lit-html](https://github.com/polymer/lit-html), which is in at least some scenarios even cooler ([[1]](https://shaman-apprentice.github.io/lit-transformer/diff-lit-mustache-demo/diff-lit-mustache-demo.html), [[2]](https://shaman-apprentice.github.io/lit-transformer/performance/results/evaluation.html)).
 
 But now you are stuck with two different render engines and have to load and manage both of them - that is annoying. In the case you cannot simply rewrite all your templates (e.g. when some of them are provided by external users), you might be stuck with this situation for a long time.
 

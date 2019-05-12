@@ -11,14 +11,14 @@ For the rescue this little library transforms a valid `mustache.js`-template int
 
 ## Basic usage
 ```js
-import createTransformer from 'lit-transformer'
-import { html } from 'lit-html'
+import { html, render } from 'lit-html';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html'
+import createTransformer from 'lit-transformer';
 
-const transformer = createTransformer(html)
+const mustache2litHtml = createTransformer(html, unsafeHTML);
+const renderTemplate = mustache2litHtml('<div>Hello {{who}}!</div>');
 
-transformer.parse('<div>Hello {{who}}!</div>') // is the same as
-ctx => html([ '<div>Hello ', '!</div>' ], ...[ ctx => ctx.who ]) // is the same as
-ctx => html`<div>${ctx.who}</div>`
+render(renderTemplate({ who: 'world' }), document.getElementById('basic'));
 ```
 
 [Try it out in this live demo!](https://stackblitz.com/edit/js-aqkbzt?embed=1&file=index.js)

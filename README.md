@@ -1,7 +1,5 @@
 # lit-transformer
 
-> 🛠  ... work in progress ... 
-
 ## Motivation
 Assuming you use cool [mustache.js](https://github.com/janl/mustache.js/) in many places. Recently you have started to use [lit-html](https://github.com/polymer/lit-html), which is in at least some scenarios even cooler ([[1]](https://shaman-apprentice.github.io/lit-transformer/diff-lit-mustache-demo/diff-lit-mustache-demo.html), [[2]](https://shaman-apprentice.github.io/lit-transformer/performance/results/evaluation.html)).
 

@@ -1,4 +1,6 @@
-import { expectTemplatesInnerHTML } from '../../../test/expectHelper'
+import Mustache from 'mustache'
+
+import { expectTemplatesInnerHTML, renderLitInnerHtml } from '../../../test/expectHelper'
 
 describe('section', () => {
   it('falsy section with undefined', () => {
@@ -28,5 +30,12 @@ describe('section', () => {
   it('data binding in list with null pointer exception', () => {
     const data = { list: [ {x:1}, {x:2} ] }
     expectTemplatesInnerHTML('{{#list}}{{x.y}}{{/list}}', data)
+  })
+
+  it('section without end tag', () => {
+    const template = '{{#list}}{{x}}{{/lst}}'
+    const data = { list: [ {x:1}, {x:2} ] }
+    expect(() => Mustache.render(template, data)).toThrow()
+    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter for section: \'{{#list}}{{x}}{{/lst}}\'')
   })
 })

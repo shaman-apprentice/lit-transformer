@@ -1,20 +1,20 @@
 [
   {
-    "DomContentLoaded": 1027247.1806498897,
-    "ScriptDuration": 0.00648197,
-    "RecalcStyleDuration": 0.00066414,
-    "LayoutDuration": 0.05983022999999998
+    "DomContentLoaded": 15398.06760151,
+    "ScriptDuration": 0.005919309999999999,
+    "RecalcStyleDuration": 0.00056139,
+    "LayoutDuration": 0.056207819999999985
   },
   {
-    "DomContentLoaded": 1027247.1806498897,
-    "ScriptDuration": 0.00045775,
-    "RecalcStyleDuration": 0.00010178000000000005,
-    "LayoutDuration": 0.00520264
+    "DomContentLoaded": 15398.06760151,
+    "ScriptDuration": 0.00043824999999999995,
+    "RecalcStyleDuration": 0.00009766000000000001,
+    "LayoutDuration": 0.0048289200000000004
   },
   {
-    "DomContentLoaded": 1027247.1806498897,
-    "ScriptDuration": 0.006704179999999999,
-    "RecalcStyleDuration": 0.0007321900000000001,
-    "LayoutDuration": 0.06010867000000001
+    "DomContentLoaded": 15398.06760151,
+    "ScriptDuration": 0.006131500000000001,
+    "RecalcStyleDuration": 0.0006279300000000002,
+    "LayoutDuration": 0.05645061000000001
   }
 ]

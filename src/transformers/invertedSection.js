@@ -1,27 +1,18 @@
 import { ctx2Value } from '../helper/dataHelper.js'
 import { isMustacheFalsy } from '../helper/isMustacheFalsy.js'
+import { parseSection } from '../helper/sectionHelper.js'
 
 export default () => ({
   test: remainingTmplStr => remainingTmplStr[0] === '^',
   transform: (remainingTmplStr, { delimiter }) => {
-    const indexOfStartTagEnd = remainingTmplStr.indexOf(delimiter.end)
-    const dataKey = remainingTmplStr.substring(1, indexOfStartTagEnd)
-    const endTag = delimiter.start + '/' + dataKey + delimiter.end
-    const indexOfEndTagStart = remainingTmplStr.indexOf(endTag)
-    if (indexOfEndTagStart < 0)
-      throw new Error(`missing end delimiter for inverted section: '${delimiter.start}${remainingTmplStr}'`)
-
-    const innerStr = remainingTmplStr.substring(indexOfStartTagEnd + delimiter.start.length, indexOfEndTagStart)
+    const parsedSection = parseSection(remainingTmplStr, delimiter)
 
     return {
-      remainingTmplStr: remainingTmplStr.substring(indexOfEndTagStart + endTag.length),
-      insertionPoint: ctx => {
-        const dataValue = ctx2Value(ctx, dataKey)
-
-        return isMustacheFalsy(dataValue)
-          ? innerStr
-          : ''
-      },
+      remainingTmplStr: parsedSection.remainingTmplStr,
+      insertionPoint: ctx =>
+        isMustacheFalsy(ctx2Value(ctx, parsedSection.dataKey))
+          ? parsedSection.innerTmpl
+          : '',
     }
   }
 })

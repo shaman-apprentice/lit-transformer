@@ -36,6 +36,6 @@ describe('section', () => {
     const template = '{{#list}}{{x}}{{/lst}}'
     const data = { list: [ {x:1}, {x:2} ] }
     expect(() => Mustache.render(template, data)).toThrow()
-    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter for section: \'{{#list}}{{x}}{{/lst}}\'')
+    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter at: \'{{#list}}{{x}}{{/lst}}\'')
   })
 })

@@ -19,6 +19,6 @@ describe('inverted section', () => {
     const template = '{{^who}no one{{/nobody}}'
     const data = { list: [ {x:1}, {x:2} ] }
     expect(() => Mustache.render(template, data)).toThrow()
-    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter for inverted section: \'{{^who}no one{{/nobody}}\'')
+    expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter at: \'{{^who}no one{{/nobody}}\'')
   })
 })

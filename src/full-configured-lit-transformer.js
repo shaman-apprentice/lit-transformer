@@ -1,5 +1,5 @@
 import createTransform from './lit-transformer.js'
-import transformVariable from './transformers/transformVariable.js'
+import transformVariable from './transformers/variable.js'
 import unsafeVariableTransformer from './transformers/unsafeVariable.js'
 import sectionTransformer from './transformers/section.js'
 import invertedSectionTransformer from './transformers/invertedSection.js'

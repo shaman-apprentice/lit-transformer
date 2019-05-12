@@ -2,7 +2,7 @@ import { renderLitInto, renderMustacheInto } from '../../../test/expectHelper'
 
 import { html } from 'lit-html'
 import createTransform from '../../lit-transformer'
-import transformVariable from '../transformVariable'
+import transformVariable from '../variable'
 import customDelimiterTransformer from '../customDelimiter'
 import commentTransformer from '../comment'
 

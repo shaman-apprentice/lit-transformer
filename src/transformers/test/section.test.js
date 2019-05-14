@@ -37,3 +37,9 @@ test('section without end tag', () => {
   expect(() => Mustache.render(template, data)).toThrow()
   expect(() => renderLitInnerHtml(template, data)).toThrow('missing end delimiter at: \'{{#list}}{{x}}{{/lst}}\'')
 })
+
+test('section with non-falsy data, which provides no map as guard', () => {
+  const template = '{{#a.b}}{{a.b}}{{/a.b}}'
+  const data = { a: { b: 1 } }
+  expectTemplatesInnerHTML(template, data)
+})

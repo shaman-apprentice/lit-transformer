@@ -18,7 +18,9 @@ export default () => ({
         if (isMustacheFalsy(sectionData))
           return '';
 
-        return sectionData.map(innerCtx => transformedInnerTmpl(innerCtx))
+        return sectionData.map
+          ? sectionData.map(innerCtx => transformedInnerTmpl(innerCtx))
+          : transformedInnerTmpl(ctx)
       }
     }
   }

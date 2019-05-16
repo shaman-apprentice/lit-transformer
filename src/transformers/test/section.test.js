@@ -31,6 +31,10 @@ test('data binding in list with null pointer exception', () => {
   expectTemplatesInnerHTML('{{#list}}{{x.y}}{{/list}}', data)
 })
 
+test('data binding with null pointer exception in key', () => {
+  expectTemplatesInnerHTML('{{#a.b}}BUH{{/a.b}}', {})
+})
+
 test('section without end tag', () => {
   const template = '{{#list}}{{x}}{{/lst}}'
   const data = { list: [ {x:1}, {x:2} ] }

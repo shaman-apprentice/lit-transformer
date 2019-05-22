@@ -9,5 +9,17 @@ export function ctx2Value(ctx, key) {
 
     result = result[k]
   }
-  return result;
+
+  return result
+}
+
+export function ctx2MustacheString(ctx, key) {
+  return mustacheStringyfy(ctx2Value(ctx, key))
+}
+
+function mustacheStringyfy(value) {
+  if (value === undefined || value === null)
+    return ''
+
+  return '' + value
 }

@@ -16,7 +16,7 @@ test('nested data binding', () => {
   expectTemplatesInnerHTML('Hello {{who.prefix}} {{who.name}}!', data)
 })
 
-test('attribute data binding', () => {
+test('attribute data binding with value', () => {
   const template = '<div some-attri="{{someValue}}"></div>'
   const data = { someValue: 'some-value' }
   expect(renderLitInto(template, data).querySelector('[some-attri="some-value"]')).not.toBe(null)
@@ -41,4 +41,20 @@ test('data binding with null pointer exception', () => {
 
 test('false as value', () => {
   expectTemplatesInnerHTML('hi {{who}}', { who: false })
+})
+
+test('attribute data binding with undefined', () => {
+  expectTemplatesInnerHTML('<div some-attri="{{someValue}}"></div>', { someValue: undefined })
+})
+
+test('attribute data binding with null', () => {
+  expectTemplatesInnerHTML('<div some-attri="{{someValue}}"></div>', { someValue: null })
+})
+
+test('object in HTML data binding', () => {
+  expectTemplatesInnerHTML('<div>{{someValue}}</div>', { someValue: {a: 1} })
+})
+
+test('list in HTML data binding', () => {
+  expectTemplatesInnerHTML('<div>{{someValue}}</div>', { someValue: [1,2,3] })
 })

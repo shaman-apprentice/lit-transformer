@@ -1,6 +1,6 @@
 {
   "name": "lit-transformer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "src/lit-transformer-configuredOutOfTheBox.js",
   "license": "ISC",
   "description": "transforms a mustache like template into a lit-html template",
